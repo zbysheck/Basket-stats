@@ -49,7 +49,8 @@
 
 <html>
 	<head>
-		<meta charset="utf-8">
+		<title>dodaj</title>
+		<meta charset="utf-8"/>
 	</head>
 	<body>
 	<?php //bom("lala");?>
