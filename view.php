@@ -12,37 +12,18 @@
 			return "100%";
 	}
 
-	function td($s){
-		echo "<td>" . $s . "</td>";
+	function th($s){
+		echo "<th>" . $s . "</th>";
 	}
 
 	if(isset($_POST['case'])){
 		echo "lala";
 		if($_POST['case']=="player"){
-			echo "<table border=\"5\">";
-			$result = mysqli_query($con,'SELECT * FROM stat');
+			$pl=$_POST['player'];
+			echo "<table>";
+			$result = mysqli_query($con,'SELECT * FROM stat WHERE player_id="'.$pl.'"');
 			echo "<tr>";
-			td("id");
-			td("min");
-			td("pkt");
-			td("c3");
-			td("w3");
-			td("%3");
-			td("c2");
-			td("w2");
-			td("%2");
-			td("c1");
-			td("w1");
-			td("%1");
-			td("zba");
-			td("zbo");
-			td("zbw");
-			TD("A");
-			TD("F");
-			TD("S");
-			TD("P");
-			TD("B");
-			echo "</tr>";
+			th("id");th("min");th("pkt");th("c3");th("w3");th("%3");th("c2");th("w2");th("%2");th("c1");th("w1");th("%1");th("zba");th("zbo");th("zbw");th("A");th("F");th("S");th("P");th("B");echo "</tr>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<tr>";
 				echo "<td>" . $row['stat_id'] . "</td>";
@@ -81,7 +62,9 @@
 
 <html>
 	<head>
-		<meta charset="utf-8">
+		<title> kosz</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<meta charset="utf-8"/>
 	</head>
 	<body>
 	<br/>
