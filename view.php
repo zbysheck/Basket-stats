@@ -1,51 +1,82 @@
 <?php
-	$con=mysqli_connect("localhost","root","","basket");
+	$con=mysqli_connect("localhost","root","","basket2");
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-if(isset($_POST['case'])){
-	if($_POST['case'] == 'team'){
-		echo "tem";
-		insertTeam();
-	}elseif($_POST['case'] == 'player'){
-		insertPlayer();
-	}elseif($_POST['case'] == 'match'){
-		insertMatch();
-	}elseif($_POST['case'] == 'stat'){
-		insertStat();
-	}
-	echo $_POST['case'];echo "dasdasa";
-
-
-	if (!mysqli_query($con,$sql)){
-		die('Error: ' . mysqli_error($con));
-	}
-	echo "1 record added";
-	//mysqli_close($con);
-
-
-}
-
-	function insertTeam(){
-			$sql="INSERT INTO druzyny (nazwa)
-	VALUES
-	('$_POST[team_name]')";
+	function perc($f, $s){
+		if($s || $f>$s)
+			return round($f*100/$s) . "%";
+		else 
+			return "100%";
 	}
 
+	function td($s){
+		echo "<td>" . $s . "</td>";
+	}
 
-/*
-	function dropDown($table, $option, $text){
-		$result = mysqli_query($con,'SELECT * FROM ".$table."');
-		while($row = mysqli_fetch_array($result)){
-			echo "<option value=\"";
-			echo $row['$option'] . "\">" . $row['$text'];
-			echo "</option><br>";
+	if(isset($_POST['case'])){
+		echo "lala";
+		if($_POST['case']=="player"){
+			echo "<table border=\"5\">";
+			$result = mysqli_query($con,'SELECT * FROM stat');
+			echo "<tr>";
+			td("id");
+			td("min");
+			td("pkt");
+			td("c3");
+			td("w3");
+			td("%3");
+			td("c2");
+			td("w2");
+			td("%2");
+			td("c1");
+			td("w1");
+			td("%1");
+			td("zba");
+			td("zbo");
+			td("zbw");
+			TD("A");
+			TD("F");
+			TD("S");
+			TD("P");
+			TD("B");
+			echo "</tr>";
+			while($row = mysqli_fetch_array($result)){
+				echo "<tr>";
+				echo "<td>" . $row['stat_id'] . "</td>";
+				echo "<td>" . $row['minutes'] . "</td>";
+				echo "<td>" . ($row['fg3']*3+$row['fg2']*2+$row['fg1'])  . "</td>";
+				echo "<td>" . $row['fg3'] . "</td>";
+				echo "<td>" . $row['fga3'] . "</td>";
+				echo "<td>" . perc($row['fg3'], $row['fga3']) . "</td>";
+				echo "<td>" . $row['fg2'] . "</td>";
+				echo "<td>" . $row['fga2'] . "</td>";
+				echo "<td>" . perc($row['fg2'], $row['fga2']) . "</td>";
+				echo "<td>" . $row['fg1'] . "</td>";
+				echo "<td>" . $row['fga1'] . "</td>";
+				echo "<td>" . perc($row['fg1'], $row['fga1']) . "</td>";
+				echo "<td>" . $row['orb'] . "</td>";
+				echo "<td>" . $row['drb'] . "</td>";
+				echo "<td>" . ($row['drb']+$row['orb']) . "</td>";
+				echo "<td>" . $row['assists'] . "</td>";
+				echo "<td>" . $row['fauls'] . "</td>";
+				echo "<td>" . $row['turnovers'] . "</td>";
+				echo "<td>" . $row['steals'] . "</td>";
+				echo "<td>" . $row['blocks'] . "</td>";
+
+				echo "</tr>";
+			}
+			echo "</table>";
 		}
-	}
+		elseif($_POST['case']=="add_player"){
 
-	dropDown("druzyny", "druzyny_id", "nazwa");*/
+		}
+
+		echo "1 record added";
+		//mysqli_close($con);
+	}
 ?>
 
 <html>
@@ -53,63 +84,25 @@ if(isset($_POST['case'])){
 		<meta charset="utf-8">
 	</head>
 	<body>
-	<?php //bom("lala");?>
 	<br/>
-		<b>Dodaj drużynę</b>
-		<form action="sub.php" method="post">
-			Nazwa drużyny: <input type="text" name="team_name">
-			<input type="hidden" name="case" value="team">
-			<input type="submit">
-		</form>
-
-		<b>Dodaj zawodniczkę</b>
-		<form action="include/insert_player.php" method="post">
-			Zawodniczka: <input type="text" name="imie_nazwisko">
-			Drużyna: <select name="team" id="myselect">
+		
+		<b>Pokaż zawodniczkę</b>
+		<form action="view.php" method="post">
+			<br/> <select name="player" id="myselect" onchange="this.form.submit()">
 <?php
-			$result = mysqli_query($con,'SELECT * FROM druzyny');
+			$result = mysqli_query($con,'SELECT * FROM player');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo $row['player_id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
-			
-			//dropDown("druzyny", "druzyny_id", "nazwa");
 ?>
-
+			<input type="hidden" name="case" value="player">
 					</select>
 			<input type="submit">
 		</form>
 
-		<b>Dodaj mecz</b>
-		<form action="include/insert_match.php" method="post">
-			Drużyna1: <input type="text" name="id_team1">
-			Drużyna2: <input type="text" name="id_team2">
-			Data: <input type="date" name="match_date">
-			<input type="submit">
-		</form>
-
-		<b>Dodaj statystyki</b>
-		<form action="include/insert_stat.php" method="post">
-			mecze_id: <input type="number" name="mecze_id">
-			zawodniczki_id: <input type="number" name="zawodniczki_id">
-			minuty: <input type="number" name="minuty">
-			celne3: <input type="number" name="celne3">
-			wykonane3: <input type="number" name="wykonane3">
-			celne2: <input type="number" name="celne2">
-			wykonane2: <input type="number" name="wykonane2">
-			celne1: <input type="number" name="celne1">
-			wykonane1: <input type="number" name="wykonane1">
-			zbiorki_atak: <input type="number" name="zbiorki_atak">
-			zbiorki_obrona: <input type="number" name="zbiorki_obrona">
-			asysty: <input type="number" name="asysty">
-			faule: <input type="number" name="faule">
-			straty: <input type="number" name="straty">
-			przechwyty: <input type="number" name="przechwyty">
-			bloki: <input type="number" name="bloki">
-			<input type="submit">
-		</form>
 
 	</body>
 </html>
