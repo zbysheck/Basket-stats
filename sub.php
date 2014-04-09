@@ -48,7 +48,7 @@ if(isset($_POST['case'])){
 
 		<b>Dodaj zawodniczkę</b>
 		<form action="include/insert_player.php" method="post">
-			Zawodniczka: <input type="text" name="imie_nazwisko">
+			Imię i Nazwisko: <input type="text" name="imie_nazwisko">
 			Drużyna: <select name="team" id="myselect">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM druzyny');
@@ -68,27 +68,60 @@ if(isset($_POST['case'])){
 
 		<b>Dodaj mecz</b>
 		<form action="include/insert_match.php" method="post">
-			Drużyna1: <input type="text" name="id_team1">
-			Drużyna2: <input type="text" name="id_team2">
+			Drużyna: <select name="id_team1" id="myselect">
+<?php
+			$result = mysqli_query($con,'SELECT * FROM druzyny');
+
+			while($row = mysqli_fetch_array($result)){
+				echo "<option value=\"";
+				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo "</option><br>";
+			}
+			
+			//dropDown("druzyny", "druzyny_id", "nazwa");
+?>
+
+					</select>
+			Drużyna: <select name="id_team2" id="myselect">
+<?php
+			$result = mysqli_query($con,'SELECT * FROM druzyny');
+
+			while($row = mysqli_fetch_array($result)){
+				echo "<option value=\"";
+				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo "</option><br>";
+			}
+?>
+
+					</select>
 			Data: <input type="date" name="match_date">
 			<input type="submit">
 		</form>
 
 		<b>Dodaj statystyki</b>
 		<form action="include/insert_stat.php" method="post">
-			mecza: <select name="mecze_id" id="myselect">
+			mecz: <select name="mecze_id" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT * FROM mecze');
+			$result = mysqli_query($con,'SELECT `d1`.nazwa AS n1, `d2`.nazwa AS n2, `mecze`.data_meczu AS d, `mecze`.mecze_id AS id FROM `mecze` INNER JOIN `druzyny` AS d1 on `d1`.druzyny_id=`mecze`.id_team1 INNER JOIN `druzyny` AS d2 on `d2`.druzyny_id=`mecze`.id_team2');
+
+			while($row = mysqli_fetch_array($result)){
+				echo "<option value=\"" . $row['id'] . "\">" . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option><br>";
+			}
+?>
+			</select>
+			Zawodniczka: <select name="zawodniczki_id" id="myselect">
+<?php
+			$result = mysqli_query($con,'SELECT `z`.nazwa AS n, `d`.nazwa AS n2, `z`.zawodniczki_id as id FROM `zawodniczki` as z INNER JOIN `druzyny` as d ON `d`.druzyny_id=`z`.id_team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-
-				$v=$row['id_team1'] . " vs. " . $row['id_team2'];
-				echo $row['mecze_id'] . "\">" . $v . " (" . $row['data_meczu'] . ")";
+				echo $row['id'] . "\">" . $row['n'] . " (" . $row['n2'] . ")";
 				echo "</option><br>";
 			}
-?></select>
-			zawodniczki_id: <input type="number" name="zawodniczki_id">
+?>
+
+			</select>
+			<br/>
 			minuty: <input type="number" name="minuty">
 			celne3: <input type="number" name="celne3">
 			wykonane3: <input type="number" name="wykonane3">
