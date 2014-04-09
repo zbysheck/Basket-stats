@@ -7,7 +7,6 @@
 
 if(isset($_POST['case'])){
 		
-
 	$sql="INSERT INTO druzyny (nazwa)
 	VALUES
 	('$_POST[team_name]')";
@@ -20,17 +19,17 @@ if(isset($_POST['case'])){
 }
 
 
-/*
+//
 	function dropDown($table, $option, $text){
-		$result = mysqli_query($con,'SELECT * FROM ".$table."');
+		$result = mysqli_query($con,'SELECT * FROM table');
 		while($row = mysqli_fetch_array($result)){
 			echo "<option value=\"";
-			echo $row['$option'] . "\">" . $row['$text'];
+			echo $row['option'] . "\">" . $row['text'];
 			echo "</option><br>";
 		}
 	}
 
-	dropDown("druzyny", "druzyny_id", "nazwa");*/
+	//dropDown("druzyny", "druzyny_id", "nazwa");//*/
 ?>
 
 <html>
@@ -77,7 +76,18 @@ if(isset($_POST['case'])){
 
 		<b>Dodaj statystyki</b>
 		<form action="include/insert_stat.php" method="post">
-			mecze_id: <input type="number" name="mecze_id">
+			mecza: <select name="mecze_id" id="myselect">
+<?php
+			$result = mysqli_query($con,'SELECT * FROM mecze');
+
+			while($row = mysqli_fetch_array($result)){
+				echo "<option value=\"";
+
+				$v=$row['id_team1'] . " vs. " . $row['id_team2'];
+				echo $row['mecze_id'] . "\">" . $v . " (" . $row['data_meczu'] . ")";
+				echo "</option><br>";
+			}
+?></select>
 			zawodniczki_id: <input type="number" name="zawodniczki_id">
 			minuty: <input type="number" name="minuty">
 			celne3: <input type="number" name="celne3">
