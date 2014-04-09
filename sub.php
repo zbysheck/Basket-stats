@@ -1,22 +1,51 @@
 <?php
-	$con=mysqli_connect("localhost","root","","basket");
+	$con=mysqli_connect("localhost","root","","basket2");
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-if(isset($_POST['case'])){
-		
-	$sql="INSERT INTO druzyny (nazwa)
-	VALUES
-	('$_POST[team_name]')";
+	if(isset($_POST['case'])){
+		if($_POST['case']=="add_team"){
+			$sql="INSERT INTO team (name)
+			VALUES
+			('$_POST[team_name]')";
 
-	if (!mysqli_query($con,$sql)){
-		die('Error: ' . mysqli_error($con));
+			if (!mysqli_query($con,$sql)){
+				die('Error: ' . mysqli_error($con));
+			}
+		}
+		elseif($_POST['case']=="add_player"){
+			$sql="INSERT INTO player (name, team_id)
+			VALUES
+			('$_POST[imie_nazwisko]','$_POST[team]')";
+
+			if (!mysqli_query($con,$sql)){
+				die('Error: ' . mysqli_error($con));
+			}
+		}
+		elseif($_POST['case']=="add_game"){
+			$sql="INSERT INTO game (team1_id, team2_id, game_date)
+			VALUES
+			('$_POST[id_team1]','$_POST[id_team2]','$_POST[match_date]')";
+
+			if (!mysqli_query($con,$sql)){
+				die('Error: ' . mysqli_error($con));
+			}
+		}
+		elseif($_POST['case']=="add_stat"){
+			$sql="INSERT INTO stat (game_id, player_id, minutes, fg3, fga3, fg2, fga2, fg1, fga1, orb, drb, assists, fauls, turnovers, steals, blocks)
+			VALUES
+			('$_POST[game_id]','$_POST[player_id]','$_POST[minuty]','$_POST[celne3]','$_POST[wykonane3]','$_POST[celne2]','$_POST[wykonane2]','$_POST[celne1]','$_POST[wykonane1]','$_POST[zbiorki_atak]','$_POST[zbiorki_obrona]','$_POST[asysty]','$_POST[faule]','$_POST[straty]','$_POST[przechwyty]','$_POST[bloki]')";
+
+			if (!mysqli_query($con,$sql)){
+				die('Error: ' . mysqli_error($con));
+			}
+		}
+
+		echo "1 record added";
+		//mysqli_close($con);
 	}
-	echo "1 record added";
-	//mysqli_close($con);
-}
 
 
 //
@@ -29,7 +58,7 @@ if(isset($_POST['case'])){
 		}
 	}
 
-	//dropDown("druzyny", "druzyny_id", "nazwa");//*/
+	//dropDown("team", "team_id", "name");//*/
 ?>
 
 <html>
@@ -42,76 +71,78 @@ if(isset($_POST['case'])){
 		<b>Dodaj drużynę</b>
 		<form action="sub.php" method="post">
 			Nazwa drużyny: <input type="text" name="team_name">
-			<input type="hidden" name="case" value="team">
+			<input type="hidden" name="case" value="add_team">
 			<input type="submit">
 		</form>
 
 		<b>Dodaj zawodniczkę</b>
-		<form action="include/insert_player.php" method="post">
+		<form action="sub.php" method="post">
 			Imię i Nazwisko: <input type="text" name="imie_nazwisko">
 			Drużyna: <select name="team" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT * FROM druzyny');
+			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo $row['team_id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			
-			//dropDown("druzyny", "druzyny_id", "nazwa");
+			//dropDown("team", "team_id", "name");
 ?>
 
 					</select>
+			<input type="hidden" name="case" value="add_player">
 			<input type="submit">
 		</form>
 
 		<b>Dodaj mecz</b>
-		<form action="include/insert_match.php" method="post">
+		<form action="sub.php" method="post">
 			Drużyna: <select name="id_team1" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT * FROM druzyny');
+			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo $row['team_id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			
-			//dropDown("druzyny", "druzyny_id", "nazwa");
+			//dropDown("team", "team_id", "name");
 ?>
 
 					</select>
 			Drużyna: <select name="id_team2" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT * FROM druzyny');
+			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['druzyny_id'] . "\">" . $row['nazwa'];
+				echo $row['team_id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 ?>
 
 					</select>
 			Data: <input type="date" name="match_date">
+			<input type="hidden" name="case" value="add_game">
 			<input type="submit">
 		</form>
 
 		<b>Dodaj statystyki</b>
-		<form action="include/insert_stat.php" method="post">
-			mecz: <select name="mecze_id" id="myselect">
+		<form action="sub.php" method="post">
+			mecz: <select name="game_id" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT `d1`.nazwa AS n1, `d2`.nazwa AS n2, `mecze`.data_meczu AS d, `mecze`.mecze_id AS id FROM `mecze` INNER JOIN `druzyny` AS d1 on `d1`.druzyny_id=`mecze`.id_team1 INNER JOIN `druzyny` AS d2 on `d2`.druzyny_id=`mecze`.id_team2');
+			$result = mysqli_query($con,'SELECT `d1`.name AS n1, `d2`.name AS n2, `game`.game_date AS d, `game`.game_id AS id FROM `game` INNER JOIN `team` AS d1 on `d1`.team_id=`game`.team1_id INNER JOIN `team` AS d2 on `d2`.team_id=`game`.team2_id');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"" . $row['id'] . "\">" . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option><br>";
 			}
 ?>
 			</select>
-			Zawodniczka: <select name="zawodniczki_id" id="myselect">
+			Zawodniczka: <select name="player_id" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT `z`.nazwa AS n, `d`.nazwa AS n2, `z`.zawodniczki_id as id FROM `zawodniczki` as z INNER JOIN `druzyny` as d ON `d`.druzyny_id=`z`.id_team');
+			$result = mysqli_query($con,'SELECT `z`.name AS n, `d`.name AS n2, `z`.player_id as id FROM `player` as z INNER JOIN `team` as d ON `d`.team_id=`z`.team_id');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
@@ -119,7 +150,6 @@ if(isset($_POST['case'])){
 				echo "</option><br>";
 			}
 ?>
-
 			</select>
 			<br/>
 			minuty: <input type="number" name="minuty">
@@ -136,6 +166,7 @@ if(isset($_POST['case'])){
 			straty: <input type="number" name="straty">
 			przechwyty: <input type="number" name="przechwyty">
 			bloki: <input type="number" name="bloki">
+			<input type="hidden" name="case" value="add_stat">
 			<input type="submit">
 		</form>
 

@@ -26,24 +26,24 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `firmy`
 --
 
-CREATE TABLE IF NOT EXISTS `druzyny` (
-  `druzyny_id` int(11) NOT NULL auto_increment,
-  `nazwa` char(255) NOT NULL,
-  PRIMARY KEY  (`druzyny_id`)
+CREATE TABLE IF NOT EXISTS `team` (
+  `team_id` int(11) NOT NULL auto_increment,
+  `name` char(255) NOT NULL,
+  PRIMARY KEY  (`team_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
-INSERT INTO `druzyny` (`druzyny_id`, `nazwa`) VALUES
+INSERT INTO `team` (`team_id`, `name`) VALUES
 (1, 'pchelki'),
 (2, 'zuczki');
 
-CREATE TABLE IF NOT EXISTS `zawodniczki` (
-  `zawodniczki_id` int(11) NOT NULL auto_increment,
-  `nazwa` char(255) NOT NULL,
-  `id_team` int(11) NOT NULL,
-  PRIMARY KEY  (`zawodniczki_id`)
+CREATE TABLE IF NOT EXISTS `player` (
+  `player_id` int(11) NOT NULL auto_increment,
+  `name` char(255) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  PRIMARY KEY  (`player_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
-INSERT INTO `zawodniczki` (`zawodniczki_id`, `nazwa`, `id_team`) VALUES
+INSERT INTO `player` (`player_id`, `name`, `team_id`) VALUES
 (1, 'asia', 1),
 (2, 'kasia', 1),
 (3, 'basia', 1),
@@ -51,40 +51,40 @@ INSERT INTO `zawodniczki` (`zawodniczki_id`, `nazwa`, `id_team`) VALUES
 (5, 'frania', 2),
 (6, 'bania', 2);
 
-CREATE TABLE IF NOT EXISTS `mecze` (
-  `mecze_id` int(11) NOT NULL auto_increment,
-  `data_meczu` date,
-  `id_team1` int(11) NOT NULL,
-  `id_team2` int(11) NOT NULL,
-  PRIMARY KEY  (`mecze_id`)
+CREATE TABLE IF NOT EXISTS `game` (
+  `game_id` int(11) NOT NULL auto_increment,
+  `game_date` date,
+  `team1_id` int(11) NOT NULL,
+  `team2_id` int(11) NOT NULL,
+  PRIMARY KEY  (`game_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
-INSERT INTO `mecze` (`mecze_id`,  `data_meczu`,  `id_team1`,  `id_team2`) VALUES
+INSERT INTO `game` (`game_id`,  `game_date`,  `team1_id`,  `team2_id`) VALUES
 (1, '20140310', 1, 2),
 (2, '20140220', 1, 2);
 
-CREATE TABLE IF NOT EXISTS `zawodniczki-mecze` (
-  `zawodniczki-mecze_id` int(11) NOT NULL auto_increment,
-  `mecze_id` int(11) NOT NULL,
-  `zawodniczki_id` int(11) NOT NULL,
-  `minuty` int(11) NOT NULL,
-  `celne3` int(11) NOT NULL,
-  `wykonane3` int(11) NOT NULL,
-  `celne2` int(11) NOT NULL,
-  `wykonane2` int(11) NOT NULL,
-  `celne1` int(11) NOT NULL,
-  `wykonane1` int(11) NOT NULL,
-  `zbiorki_atak` int(11) NOT NULL,
-  `zbiorki_obrona` int(11) NOT NULL,
-  `asysty` int(11) NOT NULL,
-  `faule` int(11) NOT NULL,
-  `straty` int(11) NOT NULL,
-  `przechwyty` int(11) NOT NULL,
-  `bloki` int(11) NOT NULL,
-  PRIMARY KEY  (`zawodniczki-mecze_id`)
+CREATE TABLE IF NOT EXISTS `stat` (
+  `stat_id` int(11) NOT NULL auto_increment,
+  `game_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `minutes` int(11) NOT NULL,
+  `fg3` int(11) NOT NULL, #field goal 3 points - trafiony rzut za 3
+  `fga3` int(11) NOT NULL, #field goal attempt 3 point - wykonany rzut za 3 
+  `fg2` int(11) NOT NULL, 
+  `fga2` int(11) NOT NULL,
+  `fg1` int(11) NOT NULL,
+  `fga1` int(11) NOT NULL,
+  `orb` int(11) NOT NULL, # offensive rebounds - zbiorka w ataku
+  `drb` int(11) NOT NULL, # offensive rebounds - zbiorka w obronie
+  `assists` int(11) NOT NULL, # asysty
+  `fauls` int(11) NOT NULL, # faule
+  `turnovers` int(11) NOT NULL, # strata
+  `steals` int(11) NOT NULL, #przechwyt
+  `blocks` int(11) NOT NULL,
+  PRIMARY KEY  (`stat_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
-INSERT INTO `zawodniczki-mecze` (`zawodniczki-mecze_id`, `mecze_id`, `zawodniczki_id`, `minuty`, `celne3`, `wykonane3`, `celne2`, `wykonane2`, `celne1`, `wykonane1`, `zbiorki_atak`, `zbiorki_obrona`, `asysty`, `faule`, `straty`, `przechwyty`, `bloki`) VALUES
+INSERT INTO `stat` (`stat_id`, `game_id`, `player_id`, `minutes`, `fg3`, `fga3`, `fg2`, `fga2`, `fg1`, `fga1`, `orb`, `drb`, `assists`, `fauls`, `turnovers`, `steals`, `blocks`) VALUES
 (1, 1, 1, 40, 3, 5, 12, 18, 7, 9, 12, 13, 11, 12, 15, 11, 9),
 (2, 1, 2, 39, 3, 5, 12, 18, 7, 9, 12, 13, 11, 12, 15, 11, 9),
 (3, 1, 3, 47, 3, 5, 12, 18, 7, 9, 12, 13, 11, 12, 15, 11, 9),
