@@ -1,19 +1,9 @@
 <?php
-	$con=mysqli_connect("localhost","root","","basket2");
+	include 'functions.php';
+	$con=connect();
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
-
-	function perc($f, $s){
-		if($s || $f>$s)
-			return round($f*100/$s) . "%";
-		else 
-			return "100%";
-	}
-
-	function th($s){
-		echo "<th>" . $s . "</th>";
 	}
 
 	if(isset($_POST['case'])){
@@ -54,8 +44,6 @@
 		elseif($_POST['case']=="add_player"){
 
 		}
-
-		echo "1 record added";
 		//mysqli_close($con);
 	}
 ?>
@@ -68,7 +56,6 @@
 	</head>
 	<body>
 	<br/>
-		
 		<b>Pokaż zawodniczkę</b>
 		<form action="view.php" method="post">
 			<br/> <select name="player" id="myselect" onchange="this.form.submit()">
