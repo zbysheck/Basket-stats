@@ -1,11 +1,11 @@
 <?php
-	$con=mysqli_connect("localhost","root","","basket");
+	$con=mysqli_connect("localhost","root","","basket2");
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-	$sql="INSERT INTO zawodniczki (nazwa, id_team)
+	$sql="INSERT INTO player (name, team_id)
 	VALUES
 	('$_POST[imie_nazwisko]','$_POST[team]')";
 
