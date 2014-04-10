@@ -1,5 +1,6 @@
 <?php
 	$con=mysqli_connect("localhost","root","","basket2");
+	include "functions.php";
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -32,24 +33,12 @@
 		echo "1 record added";
 		//mysqli_close($con);
 	}
-
-
-//
-	function dropDown($table, $option, $text){
-		$result = mysqli_query($con,'SELECT * FROM "'.$table.'"');
-		while($row = mysqli_fetch_array($result)){
-			echo "<option value=\"";
-			echo $row[$option] . "\">" . $row[$text];
-			echo "</option><br>";
-		}
-	}
-
-	//dropDown("team", "team_id", "name");//*/
 ?>
 
 <html>
 	<head>
 		<title>dodaj</title>
+		<link rel="stylesheet" type="text/css" href="style2.css" />
 		<meta charset="utf-8"/>
 	</head>
 	<body>
@@ -138,21 +127,10 @@
 			}
 ?>
 			</select>
-			<br/>
-			minuty: <input type="number" name="minuty">
-			celne3: <input type="number" name="celne3">
-			wykonane3: <input type="number" name="wykonane3">
-			celne2: <input type="number" name="celne2">
-			wykonane2: <input type="number" name="wykonane2">
-			celne1: <input type="number" name="celne1">
-			wykonane1: <input type="number" name="wykonane1">
-			zbiorki_atak: <input type="number" name="zbiorki_atak">
-			zbiorki_obrona: <input type="number" name="zbiorki_obrona">
-			asysty: <input type="number" name="asysty">
-			faule: <input type="number" name="faule">
-			straty: <input type="number" name="straty">
-			przechwyty: <input type="number" name="przechwyty">
-			bloki: <input type="number" name="bloki">
+			<br/><?php
+			$labels=array("minuty","celne3","wykonane3","celne2","wykonane2","celne1","wykonane1","zbiorki_atak","zbiorki_obrona","asysty","faule","straty","przechwyty","bloki");
+			numberTable($labels);
+			?>
 			<input type="hidden" name="case" value="add_stat">
 			<input type="submit">
 		</form>
