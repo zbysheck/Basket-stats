@@ -13,10 +13,11 @@
 
 		if($_POST['case']=="player"){
 			$pl=$_POST['player'];
-			//$p=new player();
 			player::all($pl);
 			player::avg($pl);
 			player::sum($pl);
+			player::allavg();
+			player::allsum();
 		}
 		elseif($_POST['case']=="team"){
 
