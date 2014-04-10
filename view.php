@@ -1,5 +1,7 @@
 <?php
 	include 'functions.php';
+	include 'player.php';
+
 	$con=connect();
 	// Check connection
 	if (mysqli_connect_errno()){
@@ -7,41 +9,16 @@
 	}
 
 	if(isset($_POST['case'])){
-		echo "lala";
+		//echo "lala";
+
 		if($_POST['case']=="player"){
 			$pl=$_POST['player'];
-			echo "<table>";
-			$result = mysqli_query($con,'SELECT * FROM stat WHERE player_id="'.$pl.'"');
-			echo "<tr>";
-			th("id");th("min");th("pkt");th("c3");th("w3");th("%3");th("c2");th("w2");th("%2");th("c1");th("w1");th("%1");th("zba");th("zbo");th("zbw");th("A");th("F");th("S");th("P");th("B");echo "</tr>";
-			while($row = mysqli_fetch_array($result)){
-				echo "<tr>";
-				echo "<td>" . $row['stat_id'] . "</td>";
-				echo "<td>" . $row['minutes'] . "</td>";
-				echo "<td>" . ($row['fg3']*3+$row['fg2']*2+$row['fg1'])  . "</td>";
-				echo "<td>" . $row['fg3'] . "</td>";
-				echo "<td>" . $row['fga3'] . "</td>";
-				echo "<td>" . perc($row['fg3'], $row['fga3']) . "</td>";
-				echo "<td>" . $row['fg2'] . "</td>";
-				echo "<td>" . $row['fga2'] . "</td>";
-				echo "<td>" . perc($row['fg2'], $row['fga2']) . "</td>";
-				echo "<td>" . $row['fg1'] . "</td>";
-				echo "<td>" . $row['fga1'] . "</td>";
-				echo "<td>" . perc($row['fg1'], $row['fga1']) . "</td>";
-				echo "<td>" . $row['orb'] . "</td>";
-				echo "<td>" . $row['drb'] . "</td>";
-				echo "<td>" . ($row['drb']+$row['orb']) . "</td>";
-				echo "<td>" . $row['assists'] . "</td>";
-				echo "<td>" . $row['fauls'] . "</td>";
-				echo "<td>" . $row['turnovers'] . "</td>";
-				echo "<td>" . $row['steals'] . "</td>";
-				echo "<td>" . $row['blocks'] . "</td>";
-
-				echo "</tr>";
-			}
-			echo "</table>";
+			//$p=new player();
+			player::all($pl);
+			player::avg($pl);
+			player::sum($pl);
 		}
-		elseif($_POST['case']=="add_player"){
+		elseif($_POST['case']=="team"){
 
 		}
 		//mysqli_close($con);
