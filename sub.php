@@ -64,7 +64,7 @@
 				echo "</option><br>";
 			}
 			
-			dropDown("team", "team_id", "name");
+			//dropDown("team", "team_id", "name");
 ?>
 
 					</select>
