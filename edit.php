@@ -11,6 +11,9 @@
 	if(isset($_POST['case'])){
 		if($_POST['case']=="addteam"){		
 			include 'fet.php';
+			if(isset($_POST['case'])){
+				
+			}
 		}
 		elseif($_POST['case']=="player"){
 
