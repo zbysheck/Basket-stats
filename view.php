@@ -1,6 +1,7 @@
 <?php
 	include 'functions.php';
 	include 'player.php';
+	include 'include/header.php';
 
 	$con=connect();
 	// Check connection
@@ -39,7 +40,7 @@
 			<br/> <select name="player" id="myselect" onchange="this.form.submit()">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM player');
-
+			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
 				echo $row['player_id'] . "\">" . $row['name'];
