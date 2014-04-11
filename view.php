@@ -10,8 +10,6 @@
 	}
 
 	if(isset($_POST['case'])){
-		//echo "lala";
-
 		if($_POST['case']=="player"){
 			$pl=$_POST['player'];
 			player::all($pl);
@@ -21,7 +19,7 @@
 			player::allsum();
 		}
 		elseif($_POST['case']=="team"){
-
+			
 		}
 		//mysqli_close($con);
 	}
