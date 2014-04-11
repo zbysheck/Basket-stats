@@ -1,5 +1,5 @@
 		<form action="edit.php" method="post">
-			edytuj drużynę: <select name="team" id="myselect" onchange="this.form.submit()">
+			<b>Edytuj drużynę:</b><br> <select name="team" id="myselect" onchange="this.form.submit()">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');
 			echo "<option>--</option>";
