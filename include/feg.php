@@ -15,6 +15,19 @@
 					say("edycja meczu zakończona sukcesem");
 				}
 			}
+
+			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addgame"){
+				//echo "echo" . $_POST['team'] . $_POST['team_name'];
+				$opt=trim($_POST['game']);
+				$sql="DELETE FROM game
+				WHERE id = '$opt'
+				";
+				if (!mysqli_query($con,$sql)){
+					die('Error: ' . mysqli_error($con));
+				}else{
+					say("usunięcie meczu zakończone sukcesem");
+				}
+			}
 ?>
 
 		<form action="" method="post">

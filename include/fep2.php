@@ -28,6 +28,6 @@
 ">
 			<input type="hidden" name="case" value="addplayer">
 			<input type="submit" name="action" value="update" style="display:none">
-			<input type="submit" value="[delete]" style="border: none; background: none;" name="action" value="delete">
+			<button type="submit" style="border: none; background: none;" name="action" value="delete">[delete]</button>
 			<br/><input type="submit" name="action" value="update">
 			</form>
