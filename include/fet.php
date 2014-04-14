@@ -13,6 +13,19 @@
 					say("edycja drużyny zakończona sukcesem");
 				}
 			}
+
+			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addteam"){
+				$opt=trim($_POST['team']);
+				$sql="DELETE FROM team
+				WHERE id = '$opt'
+				";
+				if (!mysqli_query($con,$sql)){
+					die('Error: ' . mysqli_error($con));
+				}else{
+					say("usunięcie drużyny zakończone sukcesem");
+				}
+			}
+
 ?>
 		<form action="" method="post">
 			<b>Edytuj drużynę:</b><br> <select name="team" id="myselect" onchange="this.form.submit()">
