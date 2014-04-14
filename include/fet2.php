@@ -1,4 +1,4 @@
-			<form action="edit.php" method="post">
+			<form action="" method="post">
 			Nazwa drużyny: <input type="text" name="team_name" value="
 <?php
 	echo team_name($_POST['team']);

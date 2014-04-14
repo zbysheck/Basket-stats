@@ -60,7 +60,7 @@
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['team_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			
@@ -80,7 +80,7 @@
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['team_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			
@@ -94,7 +94,7 @@
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
-				echo $row['team_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 ?>
@@ -107,18 +107,18 @@
 
 		<b>Dodaj statystyki</b>
 		<form action="sub.php" method="post">
-			mecz: <select name="game_id" id="myselect">
+			mecz: <select name="id" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT `d1`.name AS n1, `d2`.name AS n2, `game`.game_date AS d, `game`.game_id AS id FROM `game` INNER JOIN `team` AS d1 on `d1`.team_id=`game`.team1_id INNER JOIN `team` AS d2 on `d2`.team_id=`game`.team2_id');
+			$result = mysqli_query($con,'SELECT `d1`.name AS n1, `d2`.name AS n2, `game`.game_date AS d, `game`.id AS id FROM `game` INNER JOIN `team` AS d1 on `d1`.id=`game`.team1_id INNER JOIN `team` AS d2 on `d2`.id=`game`.team2_id');
 
 			while($row = mysqli_fetch_array($result)){
-				echo "<option value=\"" . $row['id'] . "\">" . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option><br>";
+				echo "<option value=\"" . $row['id'] . "\">" . $row['id'] . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option><br>";
 			}
 ?>
 			</select>
 			Zawodniczka: <select name="player_id" id="myselect">
 <?php
-			$result = mysqli_query($con,'SELECT `z`.name AS n, `d`.name AS n2, `z`.player_id as id FROM `player` as z INNER JOIN `team` as d ON `d`.team_id=`z`.team_id');
+			$result = mysqli_query($con,'SELECT `p`.name AS n, `t`.name AS n2, `p`.id as id FROM `player` as p INNER JOIN `team` as t ON `t`.id=`p`.team_id');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
