@@ -68,13 +68,9 @@
 	}
 
 	function pl_team_name($i){
-		$i=
-		return team_name($i)
+		$i=$i;
+		return team_name($i);
 	}
-
-	
-
-
 
 	//show("SELECT * FROM team");
 	//show('SELECT `z`.name AS n, `d`.name AS n2, `z`.player_id as id FROM `player` as z INNER JOIN `team` as d ON `d`.team_id=`z`.team_id');
