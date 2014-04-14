@@ -45,14 +45,14 @@
 	<?php //bom("lala");?>
 	<br/>
 		<b>Dodaj drużynę</b>
-		<form action="sub.php" method="post">
+		<form action="" method="post">
 			Nazwa drużyny: <input type="text" name="team_name">
 			<input type="hidden" name="case" value="add_team">
 			<input type="submit">
 		</form>
 
 		<b>Dodaj zawodniczkę</b>
-		<form action="sub.php" method="post">
+		<form action="" method="post">
 			Imię i Nazwisko: <input type="text" name="imie_nazwisko">
 			Drużyna: <select name="team" id="myselect">
 <?php
@@ -73,7 +73,7 @@
 		</form>
 
 		<b>Dodaj mecz</b>
-		<form action="sub.php" method="post">
+		<form action="" method="post">
 			Drużyna: <select name="id_team1" id="myselect">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');
@@ -106,7 +106,7 @@
 		</form>
 
 		<b>Dodaj statystyki</b>
-		<form action="sub.php" method="post">
+		<form action="" method="post">
 			mecz: <select name="id" id="myselect">
 <?php
 			$result = mysqli_query($con,'SELECT `d1`.name AS n1, `d2`.name AS n2, `game`.game_date AS d, `game`.id AS id FROM `game` INNER JOIN `team` AS d1 on `d1`.id=`game`.team1_id INNER JOIN `team` AS d2 on `d2`.id=`game`.team2_id');

@@ -132,12 +132,24 @@
 
 	function game_date($i){
 		$query='SELECT * FROM game WHERE "'.$i.'" = id';
+		echo $query;
 		$result = mysqli_query(connect(),$query);
 		if (mysqli_connect_errno()){
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		$row = mysqli_fetch_array($result);
 		return trim($row['game_date']);
+	}
+
+	function get_value($table, $value, $i){
+		$query="SELECT * FROM " . $table . " WHERE '".$i."' = id";
+		echo $query;
+		$result = mysqli_query(connect(),$query);
+		if (mysqli_connect_errno()){
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+		$row = mysqli_fetch_array($result);
+		return trim($row["$value"]);
 	}
 
 
@@ -151,5 +163,6 @@
 	//echo pl_team_name('2');
 	//echo pl_team_name('4');
 	//echo game_label('6');
-
+	echo game_date(3);
+	echo get_value("game","game_date",1);
 ?>
