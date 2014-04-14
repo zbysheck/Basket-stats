@@ -8,10 +8,8 @@
 			while($row = mysqli_fetch_array($result)){
 				$opt=trim(g_team1($_POST['game']));
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="addgame"){
-					if(!strcmp($opt,$row['id'])){
-						echo "selected ";
-					}
+				if(!strcmp($opt,$row['id'])){
+					echo "selected ";
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . team_name($row['id']);
@@ -32,10 +30,8 @@
 			while($row = mysqli_fetch_array($result)){
 				$opt=trim(g_team2($_POST['game']));
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="addgame"){
-					if(!strcmp($opt,$row['id'])){
-						echo "selected ";
-					}
+				if(!strcmp($opt,$row['id'])){
+					echo "selected ";
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . team_name($row['id']);
@@ -51,9 +47,8 @@
 	echo game_date($_POST['game']);
 ?>">
 
-
-
-			<input type="hidden" name="sub" value="yes">
 			<input type="hidden" name="case" value="addgame">
-			<br/><input type="submit">
+			<input type="submit" name="action" value="update" style="display:none">
+			<input type="submit" value="[delete]" style="border: none; background: none;" name="action" value="delete">
+			<br/><input type="submit" name="action" value="update">
 			</form>

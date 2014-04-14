@@ -1,6 +1,6 @@
 <?php
 	
-			if(isset($_POST['sub']) && $_POST['sub']=="yes" && isset($_POST['case']) && $_POST['case']=="addgame"){
+			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="addgame"){
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['game']);
 				$sql="UPDATE game SET 

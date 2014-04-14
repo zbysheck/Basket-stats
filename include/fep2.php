@@ -13,10 +13,8 @@
 			while($row = mysqli_fetch_array($result)){
 				$opt=trim(pl_team($_POST['player']));
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="addplayer"){
-					if(!strcmp($opt,$row['id'])){
+				if(!strcmp($opt,$row['id'])){
 						echo "selected ";
-					}
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . $row['name'];
@@ -28,7 +26,8 @@
 	echo $_POST['player'];
 ?>
 ">
-			<input type="hidden" name="sub" value="yes">
 			<input type="hidden" name="case" value="addplayer">
-			<br/><input type="submit">
+			<input type="submit" name="action" value="update" style="display:none">
+			<input type="submit" value="[delete]" style="border: none; background: none;" name="action" value="delete">
+			<br/><input type="submit" name="action" value="update">
 			</form>
