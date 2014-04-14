@@ -9,12 +9,12 @@
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
 				if(isset($_POST['choose']) && $_POST['choose']=="player"){
-					if(!strcmp($_POST['player'],$row['player_id'])){
+					if(!strcmp($_POST['player'],$row['id'])){
 						echo "selected ";
 					}
 				}
 				echo "value=\"";
-				echo $row['player_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			echo '</select>
@@ -31,12 +31,12 @@
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
 				if(isset($_POST['choose']) && $_POST['choose']=="team"){
-					if(!strcmp($_POST['team'],$row['team_id'])){
+					if(!strcmp($_POST['team'],$row['id'])){
 						echo "selected ";
 					}
 				}
 				echo "value=\"";
-				echo $row['team_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>";
 			}
 			echo '</select>

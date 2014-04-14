@@ -1,14 +1,16 @@
 <?php
 	
-			if(isset($_POST['sub']) && $_POST['sub']=="yes"){
+			if(isset($_POST['sub']) && $_POST['sub']=="yes" && isset($_POST['case']) && $_POST['case']=="addteam"){
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['team']);
 				$sql="UPDATE team
 				SET name ='$_POST[team_name]'
-				WHERE team_id = '$opt'
+				WHERE id = '$opt'
 				";
 				if (!mysqli_query($con,$sql)){
 					die('Error: ' . mysqli_error($con));
+				}else{
+					say("edycja drużyny zakończona sukcesem");
 				}
 			}
 ?>
@@ -19,15 +21,14 @@
 			echo "<option>--</option>";
 
 			while($row = mysqli_fetch_array($result)){
-				$opt=trim($_POST['team']);
 				echo "<option ";
 				if(isset($_POST['case']) && $_POST['case']=="addteam"){
-					if(!strcmp($opt,$row['team_id'])){
+					if(!strcmp(trim($_POST['team']),$row['id'])){
 						echo "selected ";
 					}
 				}
 				echo "value=\"";
-				echo $row['team_id'] . "\">" . $row['name'];
+				echo $row['id'] . "\">" . $row['name'];
 				echo "</option><br>\n";
 			}
 			echo "</select>";
