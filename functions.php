@@ -129,6 +129,15 @@
 		return mysqli_fetch_array($result);
 	}
 
+	function buttons($case)
+	{
+		echo '<input type="hidden" name="case" value="' . $case . '">
+			<input type="submit" name="action" value="update" style="display:none">
+			<button type="submit" style="border: none; background: none;" name="action" value="delete">[delete]</button>
+			<br/><input type="submit" name="action" value="update">
+			';
+	}
+
 
 	//show("SELECT * FROM team");
 	//show('SELECT `z`.name AS n, `d`.name AS n2, `z`.player_id as id FROM `player` as z INNER JOIN `team` as d ON `d`.team_id=`z`.team_id');

@@ -4,9 +4,9 @@
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['game']);
 				$sql="UPDATE game SET 
-				team1_id ='$_POST[team1]',#
-				team2_id ='$_POST[team2]',#
-				game_date = '$_POST[match_date]'#
+				team1_id ='$_POST[team1]',
+				team2_id ='$_POST[team2]',
+				game_date = '$_POST[match_date]'
 				WHERE id = '$opt'
 				";
 				if (!mysqli_query($con,$sql)){

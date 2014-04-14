@@ -47,8 +47,5 @@
 	echo game_date($_POST['game']);
 ?>">
 
-			<input type="hidden" name="case" value="addgame">
-			<input type="submit" name="action" value="update" style="display:none">
-			<button type="submit" style="border: none; background: none;" name="action" value="delete">[delete]</button>
-			<br/><input type="submit" name="action" value="update">
+			<?php buttons("addgame");?>
 			</form>

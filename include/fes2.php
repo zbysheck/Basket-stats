@@ -6,7 +6,7 @@
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(!strcmp($_POST['player'],$row['id'])){
+				if(!strcmp($_POST['game'],$row['id'])){
 					echo "selected ";
 				}
 				echo "value=\"";
