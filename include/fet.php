@@ -1,6 +1,6 @@
 <?php
 	
-			if(isset($_POST['sub']) && $_POST['sub']=="yes" && isset($_POST['case']) && $_POST['case']=="addteam"){
+			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="addteam"){
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['team']);
 				$sql="UPDATE team
@@ -14,7 +14,7 @@
 				}
 			}
 ?>
-		<form action="edit.php" method="post">
+		<form action="" method="post">
 			<b>Edytuj drużynę:</b><br> <select name="team" id="myselect" onchange="this.form.submit()">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');

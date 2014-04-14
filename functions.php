@@ -16,7 +16,7 @@
 	function show($query){
 		$result = mysqli_query(connect(),$query);
 		if (mysqli_connect_errno()){
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		while($row = mysqli_fetch_array($result)){
 			print_r($row);
@@ -72,43 +72,19 @@
 	}
 
 	function pl_team($i){
-		$query='SELECT * FROM player WHERE "'.$i.'" = id';
-		$result = mysqli_query(connect(),$query);
-		if (mysqli_connect_errno()){
-			echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-		$row = mysqli_fetch_array($result);
-		return trim($row['team_id']);
+		return get_value("player", "team_id", $i);
 	}
 
 	function pl_name($i){
-		$query='SELECT * FROM player WHERE "'.$i.'" = id';
-		$result = mysqli_query(connect(),$query);
-		if (mysqli_connect_errno()){
-			echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-		$row = mysqli_fetch_array($result);
-		return trim($row['name']);
+		return get_value("player", "name", $i);
 	}
 
 	function g_team1($i){
-		$query='SELECT * FROM game WHERE "'.$i.'" = id';
-		$result = mysqli_query(connect(),$query);
-		if (mysqli_connect_errno()){
-			echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-		$row = mysqli_fetch_array($result);
-		return trim($row['team1_id']);
+		return get_value("game", "team1_id", $i);
 	}
 
 	function g_team2($i){
-		$query='SELECT * FROM game WHERE "'.$i.'" = id';
-		$result = mysqli_query(connect(),$query);
-		if (mysqli_connect_errno()){
-			echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-		$row = mysqli_fetch_array($result);
-		return trim($row['team2_id']);
+		return get_value("game", "team2_id", $i);
 	}
 
 	function say($s){
@@ -131,25 +107,26 @@
 	}
 
 	function game_date($i){
-		$query='SELECT * FROM game WHERE "'.$i.'" = id';
-		echo $query;
-		$result = mysqli_query(connect(),$query);
-		if (mysqli_connect_errno()){
-			echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-		$row = mysqli_fetch_array($result);
-		return trim($row['game_date']);
+		return get_value("game", "game_date", $i);
 	}
 
 	function get_value($table, $value, $i){
 		$query="SELECT * FROM " . $table . " WHERE '".$i."' = id";
-		echo $query;
 		$result = mysqli_query(connect(),$query);
 		if (mysqli_connect_errno()){
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		$row = mysqli_fetch_array($result);
 		return trim($row["$value"]);
+	}
+
+	function game_stats($i){
+		$query="SELECT * FROM stats WHERE '".$i."' = game_id";
+		$result = mysqli_query(connect(),$query);
+		if (mysqli_connect_errno()){
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+		return mysqli_fetch_array($result);
 	}
 
 
@@ -163,6 +140,6 @@
 	//echo pl_team_name('2');
 	//echo pl_team_name('4');
 	//echo game_label('6');
-	echo game_date(3);
-	echo get_value("game","game_date",1);
+	//echo game_date(6);
+	//echo get_value("game","game_date",1);
 ?>
