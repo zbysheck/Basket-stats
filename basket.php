@@ -31,33 +31,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 add_action('admin_menu', 'basket_stats'); //menu
 
 function basket_stats(){ 
-	add_submenu_page( 'tools.php', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
+	add_submenu_page('tools.php', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
 } 
 
-function basket_stats_plugin_page () { 
-	if (!current_user_can('manage_options'))  	{ 
+function basket_stats_plugin_page(){ 
+	if(!current_user_can('manage_options')){ 
 		//wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
 	global $wpdb;
-	if (isset($_GET['action']) && $_GET['action'] == 'edit_table') 	{ 
+	if(isset($_GET['action']) && $_GET['action'] == 'edit_table'){ 
 		require_once( 'php/edit_table.php' );
-	}
-	elseif (isset($_GET['action']) && $_GET['action'] == 'edit_style') 	{ 
+	}elseif (isset($_GET['action']) && $_GET['action'] == 'edit_style'){ 
 		require_once( 'php/edit_style.php' );
-	}
-	elseif (isset($_GET['action']) && $_GET['action'] == 'rename_table') 	{ 
+	}elseif (isset($_GET['action']) && $_GET['action'] == 'rename_table'){ 
 		require_once( 'php/rename_table.php' );	
-	} 
-	elseif (isset($_GET['action']) && $_GET['action'] == 'ws_import_table') 	{ 
+	}elseif (isset($_GET['action']) && $_GET['action'] == 'ws_import_table'){ 
 		require_once( 'php/import_table.php' );	
-	} 	else 	{
+	}else{
 		echo '<div class="metabox-holder">
 		<div class="postbox open" style="width:100%;">
 			<div class="handlediv" title="Click to toggle"><br /></div>
-			<h3 class="hndle"><span>Choose file</span></h3>
+			<h3 class="hndle"><span>Edycja statystyk</span></h3>
 			<div class="inside">';
 
-		require_once('functions.php');
+	require_once('functions.php');
+	require_once('choose.php');
+	require_once('player.php');
+	require_once('include/requests.php');
 	require_once('include/fet.php');
 	require_once('include/fep.php');
 	require_once('include/feg.php');
@@ -67,3 +67,12 @@ function basket_stats_plugin_page () {
 	</div>';
 	}
 }
+
+	function allstats ($text){
+	require_once('player.php');
+	require_once('functions.php');
+		$text = str_replace("[allstats]",player::allsum(), $text);
+		return $text;
+	}
+
+	add_filter("the_content", "allstats");
