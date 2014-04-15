@@ -1,30 +1,27 @@
-			<form action="" method="post">
-			Nazwa zawodniczki: <input type="text" name="player_name" value="
-<?php
+<?php			
+	echo '<form action="" method="post">
+	Nazwa zawodniczki: <input type="text" name="player_name" value="';
 	echo pl_name($_POST['player']);
-?>
-">
-			zmień drużynę: 
-<?php
-			$result = mysqli_query($con,'SELECT * FROM team');
-			echo '<select name="team" id="myselect">';
-			echo "<option>--</option>";
+	echo '">';
+	echo "zmień drużynę:";
+	
+	$result = mysqli_query($con,'SELECT * FROM team');
+	echo '<select name="team" id="myselect">';
+	echo "<option>--</option>";
+	while($row = mysqli_fetch_array($result)){
+		$opt=trim(pl_team($_POST['player']));
+		echo "<option ";
+		if(!strcmp($opt,$row['id'])){
+				echo "selected ";
+		}
+		echo "value=\"";
+		echo $row['id'] . "\">" . $row['name'];
+		echo "</option><br>\n";
+	}
+	echo "</select>";
 
-			while($row = mysqli_fetch_array($result)){
-				$opt=trim(pl_team($_POST['player']));
-				echo "<option ";
-				if(!strcmp($opt,$row['id'])){
-						echo "selected ";
-				}
-				echo "value=\"";
-				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>\n";
-			}
-			echo "</select>";
-?>
-			<input type="hidden" name="player" value="<?php
+	echo '<input type="hidden" name="player" value="';
 	echo $_POST['player'];
-?>
-">
-			<?php buttons("addplayer");?>
-			</form>
+	echo '">';
+	buttons("chooseplayer");
+	echo '</form>';
