@@ -3,11 +3,11 @@
  * @package Basket stats
  */
 /*
-Plugin Name: basket-stats
+Plugin Name: Basket Stats
 Plugin URI: to-be-announced.com
 Description: Simple plugin for tracking basketball stats
 Version: 0.0.1
-Author: zbyshekh
+Author: zbyshekh - Zbigniew Kisły
 Author URI: http://zbyshekh.heliohost.org/
 License: GPLv2 or later
 */

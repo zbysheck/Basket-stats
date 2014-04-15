@@ -38,7 +38,7 @@
 <html>
 	<head>
 		<title>dodaj</title>
-		<link rel="stylesheet" type="text/css" href="style2.css" />
+		<link rel="stylesheet" type="text/css" href="css/style2.css" />
 		<meta charset="utf-8"/>
 	</head>
 	<body>
