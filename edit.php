@@ -1,5 +1,7 @@
 <?php
 	include 'functions.php';
+	include 'choose.php';
+	include 'include/requests.php';
 	include 'include/header.php';
 	
 	include 'include/fet.php';

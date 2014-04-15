@@ -36,7 +36,7 @@
 	<br/>
 	<b>Wybierz zawodniczkę</b>
 <?php
-			choose::player();
+			choose::playerr();
 			choose::team();
 ?>
 

@@ -1,6 +1,10 @@
 <?php
 	class choose{
-		static public function player(){
+		static public function playerr(){
+			choose::player("choose");
+		}
+
+		static public function player($form_name){
 			$con=connect();
 			echo '<form action="" method="post">
 			<br/> <select name="player" id="myselect" onchange="this.form.submit()">';
@@ -8,7 +12,7 @@
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST['choose']) && $_POST['choose']=="player"){
+				if(isset($_POST[$form_name]) && $_POST[$form_name]=="chooseplayer"){
 					if(!strcmp($_POST['player'],$row['id'])){
 						echo "selected ";
 					}
@@ -18,7 +22,9 @@
 				echo "</option><br>";
 			}
 			echo '</select>
-			<input type="hidden" name="choose" value="player">
+			<input type="hidden" name="';
+			echo $form_name;
+			echo'" value="chooseplayer">
 		</form>';
 		}
 
