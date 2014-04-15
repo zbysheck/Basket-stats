@@ -15,15 +15,7 @@
 			}
 
 			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addteam"){
-				$opt=trim($_POST['team']);
-				$sql="DELETE FROM team
-				WHERE id = '$opt'
-				";
-				if (!mysqli_query($con,$sql)){
-					die('Error: ' . mysqli_error($con));
-				}else{
-					say("usunięcie drużyny zakończone sukcesem");
-				}
+				delete_team($_POST['team']);
 			}
 
 ?>

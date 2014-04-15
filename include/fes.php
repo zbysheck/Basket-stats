@@ -1,5 +1,7 @@
 <?php
-
+			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addstat"){
+				delete_stat($_POST['stat']);
+			}
 ?>
 		<form action="" method="post">
 			<b>Edytuj statystyki:</b><br> <select name="game" id="myselect" onchange="this.form.submit()">

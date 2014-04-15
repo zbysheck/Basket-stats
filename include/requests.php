@@ -26,7 +26,7 @@
 		delete_query("game", $id, "usunięcie meczu zakończone sukcesem");
 	}
 
-	function delete_team($id){
+	function delete_stat($id){
 		delete_query("stat", $id, "usunięcie statystyki zakończone sukcesem");
 	}
 
