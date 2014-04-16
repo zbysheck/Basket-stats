@@ -53,6 +53,7 @@
 	}
 
 	function numberTable($labels, $id=0){
+		$labels =array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
 		echo "<table>";
 		foreach ($labels as $i){
 			echo "<td>";
@@ -133,6 +134,7 @@
 	function update_table($table, $id, $sql, $label){
 
 		$sql ='UPDATE ' . $table . " SET " . $sql . 'WHERE id = ' . trim($id);
+		//echo $sql;
 		if (!mysqli_query(connect(),$sql)){
 			die('Error: ' . mysqli_error($con));
 		}else{
