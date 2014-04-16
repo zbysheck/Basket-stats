@@ -48,38 +48,70 @@
 		}elseif (isset($_GET['action']) && $_GET['action'] == 'ws_import_table'){ 
 			require_once( 'php/import_table.php' );	
 		}else{
+			basket_admin_tabs();
 			echo '<div class="metabox-holder">
 			<div class="postbox open" style="width:100%;">
 				<div class="handlediv" title="Click to toggle"><br /></div>
 				<h3 class="hndle"><span>Edycja statystyk</span></h3>
 				<div class="inside">';
 
-		require_once('functions.php');
-		require_once('choose.php');
-		require_once('player.php');
-		require_once('include/requests.php');
-		require_once('include/action.php');
-		require_once('include/fet.php');
-		require_once('include/fep.php');
-		require_once('include/feg.php');
-		require_once('include/fes.php');
+				require_once('functions.php');
+				require_once('choose.php');
+				require_once('player.php');
+				require_once('include/requests.php');
+				require_once('include/action.php');
+				require_once('include/fet.php');
+				require_once('include/fep.php');
+				require_once('include/feg.php');
+				require_once('include/fes.php');
 			echo '</div>
 			</div>
 		</div>';
 		}
 	}
 
+	function basket_admin_tabs( $current = 'edit' ) {
+		$tabs = array( 'add' => 'Dodaj', 'edit' => 'Edytuj', 'settings' => 'Ustawienia' );
+		echo '<div id="icon-themes" class="icon32"><br></div>';
+		echo '<h2 class="nav-tab-wrapper">';
+		foreach( $tabs as $tab => $name ){
+			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+			echo "<a class='nav-tab$class' href='?page=basket_stats&tab=$tab'>$name</a>";
+
+		}
+		echo '</h2>';
+	}
+
 	function allstats ($text){
-	require_once('player.php');
-	require_once('functions.php');
-		callback_plugin();
-		$text = str_replace("[allstats]",player::allsum(), $text);
+		require_once('player.php');
+		require_once('functions.php');
+		
+		//$text = str_replace("[allstats]",player::allsum(), $text);
 		return $text;
 	}
 
 	add_filter("the_content", "allstats");
-	register_activation_hook( __FILE__, 'callback_plugin' );
-	//callback function
+	
+	// This adds support for a "simplenote" shortcode
+	
+	function simplenote_shortcode_fn( $attributes ) {
+		return "lala()";
+	}
+	add_shortcode( 'simplenote', 'simplenote_shortcode_fn');
+	
+	function lala(){
+		echo "funkcja";
+	}
+
+
+
+
+
+
+
+	/*
+
+register_activation_hook( __FILE__, 'callback_plugin' );
 	function callback_plugin(){
 		global $wpdb;
 		$table_name = $wpdb->prefix . "blabla";
@@ -95,4 +127,4 @@
 			echo "lala";
 			echo $wpdb->get_results( "SELECT * FROM comments" )[0];
 		}
-	}
+	}*/

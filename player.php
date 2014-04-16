@@ -61,7 +61,7 @@
 
 		static public function allsum(){
 			echo "suma wszystkich<br>";
-			player::stats('SELECT id, SUM(minutes) AS minutes, SUM(fg3) AS fg3, SUM(fga3) AS fga3, SUM(fg2) AS fg2, SUM(fga2) AS fga2, SUM(fg1) AS fg1, SUM(fga1) AS fga1, SUM(orb) AS orb, SUM(drb) AS drb, SUM(assists) AS assists, SUM(fauls) AS fauls, SUM(turnovers) AS turnovers, SUM(steals) AS steals, SUM(blocks) AS blocks FROM stat GROUP BY player_id');
+			//player::stats('SELECT id, SUM(minutes) AS minutes, SUM(fg3) AS fg3, SUM(fga3) AS fga3, SUM(fg2) AS fg2, SUM(fga2) AS fga2, SUM(fg1) AS fg1, SUM(fga1) AS fga1, SUM(orb) AS orb, SUM(drb) AS drb, SUM(assists) AS assists, SUM(fauls) AS fauls, SUM(turnovers) AS turnovers, SUM(steals) AS steals, SUM(blocks) AS blocks FROM stat GROUP BY player_id');
 		}
 
 		static public function allavg(){
