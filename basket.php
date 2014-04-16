@@ -58,6 +58,7 @@
 		require_once('choose.php');
 		require_once('player.php');
 		require_once('include/requests.php');
+		require_once('include/action.php');
 		require_once('include/fet.php');
 		require_once('include/fep.php');
 		require_once('include/feg.php');

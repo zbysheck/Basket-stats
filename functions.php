@@ -54,7 +54,7 @@
 
 	function numberTable($labels, $id=0){
 		echo "<table>";
-		foreach ($labels as $i) {
+		foreach ($labels as $i){
 			echo "<td>";
 			numberBox($i,$id);
 			echo "</td>";
@@ -121,8 +121,8 @@
 	}
 
 	function get_value($table, $value, $i){
-		$query="SELECT * FROM " . $table . " WHERE '".$i."' = id";
-		$result = mysqli_query(connect(),$query);
+		$sql="SELECT * FROM " . $table . " WHERE '".$i."' = id";
+		$result = mysqli_query(connect(),$sql);
 		if (mysqli_connect_errno()){
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
@@ -130,9 +130,20 @@
 		return trim($row["$value"]);
 	}
 
+	function update_table($table, $id, $sql, $label){
+
+		$sql ='UPDATE ' . $table . " SET " . $sql . 'WHERE id = ' . trim($id);
+		if (!mysqli_query(connect(),$sql)){
+			die('Error: ' . mysqli_error($con));
+		}else{
+			$s="edycja " . $label . " zakończona sukcesem";
+			say($s);
+		}
+	}
+
 	function game_stats($i){
-		$query="SELECT * FROM stats WHERE '".$i."' = game_id";
-		$result = mysqli_query(connect(),$query);
+		$sql="SELECT * FROM stats WHERE '".$i."' = game_id";
+		$result = mysqli_query(connect(),$sql);
 		if (mysqli_connect_errno()){
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}

@@ -1,26 +1,3 @@
-<?php
-	
-			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="choosegame"){
-				//echo "echo" . $_POST['team'] . $_POST['team_name'];
-				$opt=trim($_POST['game']);
-				$sql="UPDATE game SET 
-				team1_id ='$_POST[team1]',
-				team2_id ='$_POST[team2]',
-				game_date = '$_POST[match_date]'
-				WHERE id = '$opt'
-				";
-				if (!mysqli_query($con,$sql)){
-					die('Error: ' . mysqli_error($con));
-				}else{
-					say("edycja meczu zakończona sukcesem");
-				}
-			}
-
-			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="choosegame"){
-				delete_game($_POST['game']);
-			}
-?>
-
 		<form action="" method="post">
 			<b>Edytuj mecz:</b><br/> <select name="game" id="myselect" onchange="this.form.submit()">
 <?php

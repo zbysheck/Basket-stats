@@ -14,6 +14,10 @@
 		}
 	}
 
+	function remove ($table, $id, $label){
+		delete_query($table, $id, "usunięcie " . $label . " zakończone sukcesem");
+	}
+
 	function delete_player($id){
 		delete_query("player", $id, "usunięcie zawodnika zakończone sukcesem");
 	}
