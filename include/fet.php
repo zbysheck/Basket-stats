@@ -1,6 +1,6 @@
 <?php
 	
-			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="addteam"){
+			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="chooseteam"){
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['team']);
 				$sql="UPDATE team
@@ -14,7 +14,7 @@
 				}
 			}
 
-			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addteam"){
+			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="chooseteam"){
 				delete_team($_POST['team']);
 			}
 
@@ -27,7 +27,7 @@
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="addteam"){
+				if(isset($_POST['case']) && $_POST['case']=="chooseteam"){
 					if(!strcmp(trim($_POST['team']),$row['id'])){
 						echo "selected ";
 					}
@@ -38,16 +38,16 @@
 			}
 			echo "</select>";
 ?>
-			<input type="hidden" name="case" value="addteam">
+			<input type="hidden" name="case" value="chooseteam">
 		</form>
 <?php
-			if(isset($_POST['case']) && $_POST['case']=="addteam"){
+			if(isset($_POST['case']) && $_POST['case']=="chooseteam"){
 				echo '<form action="" method="post">
 				Nazwa drużyny: <input type="text" name="team_name" value="';
 				echo team_name($_POST['team']);
 				echo '">
 						<input type="hidden" name="team" value="';
 				echo $_POST['team'] .'">';
-				buttons("addteam");
+				buttons("chooseteam");
 				echo '</form>';
 			}

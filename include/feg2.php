@@ -45,5 +45,5 @@
 	echo game_date($_POST['game']);
 	echo '">';
 
-	buttons("addgame");
+	buttons("choosegame");
 	echo '</form>';

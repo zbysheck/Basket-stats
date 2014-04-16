@@ -128,7 +128,9 @@
 ?>
 			</select>
 			<br/><?php
-			$labels=array("minuty","celne3","wykonane3","celne2","wykonane2","celne1","wykonane1","zbiorki_atak","zbiorki_obrona","asysty","faule","straty","przechwyty","bloki");
+			//$labels=array("minuty","celne3","wykonane3","celne2","wykonane2","celne1","wykonane1","zbiorki_atak","zbiorki_obrona","asysty","faule","straty","przechwyty","bloki");
+			$labels=array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
+			
 			numberTable($labels);
 			?>
 			<input type="hidden" name="case" value="add_stat">
