@@ -5,5 +5,5 @@
 	echo '">
 			<input type="hidden" name="team" value="';
 	echo $_POST['team'] .'">';
-	buttons("addteam");
+	buttons("chooseteam");
 	echo '</form>';

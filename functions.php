@@ -37,23 +37,33 @@
 
 	}
 
-	function numberBox($name){
+	function numberBox($name, $id=0){
 
 		echo "<table><tr>";
 		echo $name;
-		echo ": </tr><tr><input type='number' min='0' value='0' name='";
+		echo ": </tr><tr><input type='number' min='0' max='999' value='";
+		if($id){
+			echo get_value("stat", $name, $id);
+		}else{
+			echo 0;
+		}
+		echo "' name='";
 		echo $name;
 		echo "'></tr></table>";
 	}
 
-	function numberTable($labels){
+	function numberTable($labels, $id=0){
 		echo "<table>";
 		foreach ($labels as $i) {
 			echo "<td>";
-			numberBox($i);
+			numberBox($i,$id);
 			echo "</td>";
 		}
 		echo "</table>s";
+	}
+
+	function nb($name, $id){
+
 	}
 
 	function team_name($i){

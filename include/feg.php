@@ -1,6 +1,6 @@
 <?php
 	
-			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="addgame"){
+			if(isset($_POST['action']) && $_POST['action']=="update" && isset($_POST['case']) && $_POST['case']=="choosegame"){
 				//echo "echo" . $_POST['team'] . $_POST['team_name'];
 				$opt=trim($_POST['game']);
 				$sql="UPDATE game SET 
@@ -16,7 +16,7 @@
 				}
 			}
 
-			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="addgame"){
+			if(isset($_POST['action']) && $_POST['action']=="delete" && isset($_POST['case']) && $_POST['case']=="choosegame"){
 				delete_game($_POST['game']);
 			}
 ?>
@@ -28,7 +28,7 @@
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="addgame"){
+				if(isset($_POST['case']) && $_POST['case']=="choosegame"){
 					if(!strcmp($_POST['game'],$row['id'])){
 						echo "selected ";
 					}
@@ -41,9 +41,56 @@
 			echo "</select><br/>";
 
 ?>
-			<input type="hidden" name="case" value="addgame">
+			<input type="hidden" name="case" value="choosegame">
 		</form>			
 <?php
-			if(isset($_POST['case']) && $_POST['case']=="addgame"){
-				include 'feg2.php';
+			if(isset($_POST['case']) && $_POST['case']=="choosegame"){
+				//include 'feg2.php';
+				echo '<form action="" method="post">
+						Drużyna 1: ';
+				$result = mysqli_query($con,'SELECT * FROM team');
+				echo '<select name="team1" id="myselect">';
+				echo "<option>--</option>";
+
+				while($row = mysqli_fetch_array($result)){
+					$opt=trim(g_team1($_POST['game']));
+					echo "<option ";
+					if(!strcmp($opt,$row['id'])){
+						echo "selected ";
+					}
+					echo "value=\"";
+					echo $row['id'] . "\">" . team_name($row['id']);
+					echo "</option><br>\n";
+				}
+				echo "</select>";
+				echo '<input type="hidden" name="game" value="';
+				echo $_POST['game'];
+				echo '">
+				Drużyna 2:'; 
+
+				$result = mysqli_query($con,'SELECT * FROM team');
+				echo '<select name="team2" id="myselect">';
+				echo "<option>--</option>";
+
+				while($row = mysqli_fetch_array($result)){
+					$opt=trim(g_team2($_POST['game']));
+					echo "<option ";
+					if(!strcmp($opt,$row['id'])){
+						echo "selected ";
+					}
+					echo "value=\"";
+					echo $row['id'] . "\">" . team_name($row['id']);
+					echo "</option><br>\n";
+				}
+				echo "</select>";
+
+				echo '<input type="hidden" name="game" value="';
+				echo $_POST['game'];
+				echo '">;
+				Data: <input type="date" name="match_date" value="';
+				echo game_date($_POST['game']);
+				echo '">';
+
+				buttons("choosegame");
+				echo '</form>';
 			}
