@@ -26,6 +26,18 @@
 			$label = "meczu";
 		}
 
+		if($_POST['case']=="choosestat"){
+			$table = "stat";
+			$id = $_POST['player'];
+			$labels=array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
+			$sql = "";
+			foreach ($labels as $i){
+				$sql .= $i . " = " . $_POST[$i] . ", ";
+			}
+			$sql=rtrim($sql, " ,") . ' ';
+			$label = "statystyki";
+		}
+
 		if($_POST['action']=="update"){
 			update_table($table, $id, $sql, $label);
 		}
