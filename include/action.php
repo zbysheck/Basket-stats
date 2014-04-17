@@ -4,29 +4,22 @@
 		if($_POST['case']=="chooseteam"){
 			$table = "team";
 			$id = $_POST['team'];
-			$sql = "name ='$_POST[team_name]' "; 
+			$sql = "name ='$_POST[team_name]' ";
 			$label = "drużyny";
-		}
-
-		if($_POST['case']=="chooseplayer"){
+		}elseif($_POST['case']=="chooseplayer"){
 			$table = "player";
 			$id = $_POST['player'];
 			$sql = "name ='$_POST[player_name]', 
 					team_id = '$_POST[team]' ";
 			$label = "zawodniczki";
-		}
-
-		if($_POST['case']=="choosegame"){
+		}elseif($_POST['case']=="choosegame"){
 			$table = "game";
 			$id = $_POST['game'];
-			$sql = "
-					team1_id ='$_POST[team1]',
+			$sql = "team1_id ='$_POST[team1]',
 					team2_id ='$_POST[team2]',
 					game_date = '$_POST[match_date]' ";
 			$label = "meczu";
-		}
-
-		if($_POST['case']=="choosestat"){
+		}elseif($_POST['case']=="choosestat"){
 			$table = "stat";
 			$id = $_POST['player'];
 			$labels=array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
@@ -40,9 +33,7 @@
 
 		if($_POST['action']=="update"){
 			update_table($table, $id, $sql, $label);
-		}
-
-		if($_POST['action']=="delete"){
+		}elseif($_POST['action']=="delete"){
 			remove($table, $id, $label);
 		}
 	}
