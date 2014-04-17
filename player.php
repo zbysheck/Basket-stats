@@ -1,6 +1,5 @@
 <?php
 	class player{
-
 		static private function stats($sql){
 			$con=connect();
 			$result = mysqli_query($con,$sql);

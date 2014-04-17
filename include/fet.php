@@ -13,7 +13,7 @@
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>\n";
+				echo "</option><br/>\n";
 			}
 			echo "</select>";
 ?>

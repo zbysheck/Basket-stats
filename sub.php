@@ -7,26 +7,28 @@
 	}
 
 	if(isset($_POST['case'])){
-		if($_POST['case']=="add_team"){
+		if($_POST['case']=="chooseteam"){
 			$sql="INSERT INTO team (name)
 			VALUES
 			('$_POST[team_name]')";
 		}
-		elseif($_POST['case']=="add_player"){
+		elseif($_POST['case']=="chooseplayer"){
 			$sql="INSERT INTO player (name, team_id)
 			VALUES
 			('$_POST[imie_nazwisko]','$_POST[team]')";
 		}
-		elseif($_POST['case']=="add_game"){
+		elseif($_POST['case']=="choosegame"){
 			$sql="INSERT INTO game (team1_id, team2_id, game_date)
 			VALUES
 			('$_POST[id_team1]','$_POST[id_team2]','$_POST[match_date]')";
 		}
-		elseif($_POST['case']=="add_stat"){
+		elseif($_POST['case']=="choosestat"){
 			$sql="INSERT INTO stat (game_id, player_id, minutes, fg3, fga3, fg2, fga2, fg1, fga1, orb, drb, assists, fauls, turnovers, steals, blocks)
 			VALUES
 			('$_POST[game_id]','$_POST[player_id]','$_POST[minuty]','$_POST[celne3]','$_POST[wykonane3]','$_POST[celne2]','$_POST[wykonane2]','$_POST[celne1]','$_POST[wykonane1]','$_POST[zbiorki_atak]','$_POST[zbiorki_obrona]','$_POST[asysty]','$_POST[faule]','$_POST[straty]','$_POST[przechwyty]','$_POST[bloki]')";
+		//NAPRAWIAMY
 		}
+		var_dump($_POST['case']));
 		if (!mysqli_query($con,$sql)){
 			die('Error: ' . mysqli_error($con));
 		}
@@ -47,7 +49,7 @@
 		<b>Dodaj drużynę</b>
 		<form action="" method="post">
 			Nazwa drużyny: <input type="text" name="team_name">
-			<input type="hidden" name="case" value="add_team">
+			<input type="hidden" name="case" value="chooseteam">
 			<input type="submit">
 		</form>
 
@@ -68,7 +70,7 @@
 ?>
 
 					</select>
-			<input type="hidden" name="case" value="add_player">
+			<input type="hidden" name="case" value="chooseplayer">
 			<input type="submit">
 		</form>
 
@@ -101,7 +103,7 @@
 
 					</select>
 			Data: <input type="date" name="match_date">
-			<input type="hidden" name="case" value="add_game">
+			<input type="hidden" name="case" value="choosegame">
 			<input type="submit">
 		</form>
 
@@ -133,7 +135,7 @@
 			
 			numberTable($labels);
 			?>
-			<input type="hidden" name="case" value="add_stat">
+			<input type="hidden" name="case" value="choosestat">
 			<input type="submit">
 		</form>
 
