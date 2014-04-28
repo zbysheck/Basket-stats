@@ -5,7 +5,7 @@
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="choosegame"){
+				if(isset($_POST['case']) && $_POST['case']=="game"){
 					if(!strcmp($_POST['game'],$row['id'])){
 						echo "selected ";
 					}
@@ -18,10 +18,10 @@
 			echo "</select><br/>";
 
 ?>
-			<input type="hidden" name="case" value="choosegame">
+			<input type="hidden" name="case" value="game">
 		</form>			
 <?php
-			if(isset($_POST['case']) && $_POST['case']=="choosegame"){
+			if(isset($_POST['case']) && $_POST['case']=="game"){
 				//include 'feg2.php';
 				echo '<form action="" method="post">
 						Drużyna 1: ';
@@ -68,6 +68,6 @@
 				echo game_date($_POST['game']);
 				echo '">';
 
-				buttons("choosegame");
+				buttons("game");
 				echo '</form>';
 			}

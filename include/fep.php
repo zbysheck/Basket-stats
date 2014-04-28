@@ -1,7 +1,7 @@
 <?php
 			echo '<b>Edytuj zawodniczkę:</b>';
 			choose::player("case");
-			if(isset($_POST['case']) && $_POST['case']=="chooseplayer"){
+			if(isset($_POST['case']) && $_POST['case']=="player"){
 				//include 'fep2.php';
 				echo '<form action="" method="post">
 				Nazwa zawodniczki: <input type="text" name="player_name" value="';
@@ -27,6 +27,7 @@
 				echo '<input type="hidden" name="player" value="';
 				echo $_POST['player'];
 				echo '">';
-				buttons("chooseplayer");
+				buttons("player");
 				echo '</form>';
+				fc($_POST['player'],"all");
 			}

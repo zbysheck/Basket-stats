@@ -13,11 +13,11 @@
 	if(isset($_POST['choose'])){
 		if($_POST['choose']=="player"){
 			$pl=$_POST['player'];
-			player::all($pl);
-			player::avg($pl);
-			player::sum($pl);
-			player::allavg();
-			player::allsum();
+			all($pl);
+			avg($pl);
+			sum($pl);
+			allavg();
+			allsum();
 		}
 		elseif($_POST['choose']=="team"){
 			

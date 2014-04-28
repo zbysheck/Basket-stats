@@ -12,7 +12,7 @@
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST[$form_name]) && $_POST[$form_name]=="chooseplayer"){
+				if(isset($_POST[$form_name]) && $_POST[$form_name]=="player"){
 					if(!strcmp($_POST['player'],$row['id'])){
 						echo "selected ";
 					}
@@ -24,7 +24,7 @@
 			echo '</select>
 			<input type="hidden" name="';
 			echo $form_name;
-			echo'" value="chooseplayer">
+			echo'" value="player">
 		</form>';
 		}
 

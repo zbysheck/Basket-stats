@@ -11,7 +11,7 @@
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option ";
-				if(isset($_POST['case']) && $_POST['case']=="choosestat"){
+				if(isset($_POST['case']) && $_POST['case']=="stat"){
 					if(!strcmp(trim($_POST['game']),$row['id'])){
 						echo "selected ";
 					}
@@ -23,10 +23,10 @@
 			}
 			echo "</select>";
 ?>
-			<input type="hidden" name="case" value="choosestat">
+			<input type="hidden" name="case" value="stat">
 		</form>
 <?php
-			if(isset($_POST['case']) && $_POST['case']=="choosestat"){
+			if(isset($_POST['case']) && $_POST['case']=="stat"){
 				//include 'fes2.php';
 				echo '<form action="" method="post">
 					<select name="player" id="myselect" onchange="this.form.submit()">';
@@ -49,10 +49,10 @@
 				echo '<input type="hidden" name="game" value="'; 
 				echo $_POST['game'];
 				echo'">
-					<input type="hidden" name="case" value="choosestat">
+					<input type="hidden" name="case" value="stat">
 				</form>';
 				
-				if(isset($_POST['case']) && $_POST['case']=="choosestat" && isset($_POST['player'])){
+				if(isset($_POST['case']) && $_POST['case']=="stat" && isset($_POST['player'])){
 						include 'fes3.php';
 				}
 			}
