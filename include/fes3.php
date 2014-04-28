@@ -11,7 +11,7 @@
 	$labels=array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
 	numberTable($labels, $_POST['player']);
 
-	buttons("choosestat");
+	buttons("stat");
 	echo '</form>';
 	
 	

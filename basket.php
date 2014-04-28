@@ -30,6 +30,11 @@
 
 	add_action('admin_menu', 'basket_stats'); //menu
 
+
+				require_once('functions.php');
+				require_once('choose.php');
+				require_once('player.php');
+
 	function basket_stats(){ 
 		add_submenu_page('tools.php', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
 	} 
@@ -49,13 +54,14 @@
 			require_once( 'php/import_table.php' );	
 		}else{
 			basket_admin_tabs();
+
 			echo '<div class="metabox-holder">
 			<div class="postbox open" style="width:100%;">
 				<div class="handlediv" title="Click to toggle"><br /></div>
 				<h3 class="hndle"><span>Edycja statystyk</span></h3>
 				<div class="inside">';
 
-				require_once('functions.php');
+				require_once('functions.php');$con=connect();
 				require_once('choose.php');
 				require_once('player.php');
 				require_once('include/requests.php');
@@ -81,31 +87,43 @@
 		}
 		echo '</h2>';
 	}
-
-	function allstats ($text){
-		require_once('player.php');
-		require_once('functions.php');
-		
-		//$text = str_replace("[allstats]",player::allsum(), $text);
-		return $text;
-	}
-
-	add_filter("the_content", "allstats");
 	
 	// This adds support for a "simplenote" shortcode
 	
-	function simplenote_shortcode_fn( $attributes ) {
-		return "lala()";
+	function allsum_shortcode_fn( $attributes ) {
+		return print_fn("allsum");
 	}
-	add_shortcode( 'simplenote', 'simplenote_shortcode_fn');
+	add_shortcode( 'allsum', 'allsum_shortcode_fn');
 	
-	function lala(){
-		echo "funkcja";
+	function allavg_shortcode_fn( $attributes ) {
+		return print_fn("allavg");
 	}
+	add_shortcode( 'allavg', 'allavg_shortcode_fn');
+	
+	function all_shortcode_function($attributes){
+		return print_fn("all",$attributes[0]);
+	}
+	add_shortcode('all','all_shortcode_function');
+	
+	function avg_shortcode_function($attributes){
+		return print_fn("avg",$attributes[0]);
+	}
+	add_shortcode('avg','avg_shortcode_function');
+	
+	function sum_shortcode_function($attributes){
+		return print_fn("sum",$attributes[0]);
+	}
+	add_shortcode('sum','sum_shortcode_function');
 
-
-
-
+	function print_fn($fn,$a=null){
+		//var_dump($a);
+		require_once('player.php');
+		require_once('functions.php');
+		ob_start();
+		$fn($a);
+		$s = ob_get_clean();
+		return $s;
+	}
 
 
 

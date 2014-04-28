@@ -161,6 +161,10 @@
 			';
 	}
 
+	function fc($id, $label){
+		echo ' Wklej statystyki na stronę zawodniczki: <input type="text" value="[' . $label . " " . $id . ']" name="tb1" readonly onclick="select()"/>';
+	}
+
 
 	//show("SELECT * FROM team");
 	//show('SELECT `z`.name AS n, `d`.name AS n2, `z`.player_id as id FROM `player` as z INNER JOIN `team` as d ON `d`.team_id=`z`.team_id');
