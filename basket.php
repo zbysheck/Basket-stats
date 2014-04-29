@@ -44,39 +44,26 @@
 			//wp_die( __('You do not have sufficient permissions to access this page.') );
 		}
 		global $wpdb;
-		if(isset($_GET['action']) && $_GET['action'] == 'edit_table'){ 
-			require_once( 'php/edit_table.php' );
-		}elseif (isset($_GET['action']) && $_GET['action'] == 'edit_style'){ 
-			require_once( 'php/edit_style.php' );
-		}elseif (isset($_GET['action']) && $_GET['action'] == 'rename_table'){ 
-			require_once( 'php/rename_table.php' );	
-		}elseif (isset($_GET['action']) && $_GET['action'] == 'ws_import_table'){ 
-			require_once( 'php/import_table.php' );	
-		}else{
-			basket_admin_tabs();
+		// if(isset($_GET['action']) && $_GET['action'] == 'edit_table'){ 
+		// 	require_once( 'php/edit_table.php' );
+		// }elseif (isset($_GET['action']) && $_GET['action'] == 'edit_style'){ 
+		// 	require_once( 'php/edit_style.php' );
+		// }elseif (isset($_GET['action']) && $_GET['action'] == 'rename_table'){ 
+		// 	require_once( 'php/rename_table.php' );	
+		// }elseif (isset($_GET['action']) && $_GET['action'] == 'ws_import_table'){ 
+		// 	require_once( 'php/import_table.php' );	
+		// }else{
+		require_once('functions.php');
+		require_once('choose.php');
+		require_once('player.php');
+		require_once('include/requests.php');
+		require_once('include/action.php');
+		basket_admin_tabs($_GET['tab']);
 
-			echo '<div class="metabox-holder">
-			<div class="postbox open" style="width:100%;">
-				<div class="handlediv" title="Click to toggle"><br /></div>
-				<h3 class="hndle"><span>Edycja statystyk</span></h3>
-				<div class="inside">';
-
-				require_once('functions.php');$con=connect();
-				require_once('choose.php');
-				require_once('player.php');
-				require_once('include/requests.php');
-				require_once('include/action.php');
-				require_once('include/fet.php');
-				require_once('include/fep.php');
-				require_once('include/feg.php');
-				require_once('include/fes.php');
-			echo '</div>
-			</div>
-		</div>';
-		}
 	}
 
 	function basket_admin_tabs( $current = 'edit' ) {
+		var_dump($current);
 		$tabs = array( 'add' => 'Dodaj', 'edit' => 'Edytuj', 'settings' => 'Ustawienia' );
 		echo '<div id="icon-themes" class="icon32"><br></div>';
 		echo '<h2 class="nav-tab-wrapper">';
@@ -86,6 +73,35 @@
 
 		}
 		echo '</h2>';
+
+		if($current == 'edit'){ 
+			echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Edycja statystyk</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('include/fet.php');
+				require_once('include/fep.php');
+				require_once('include/feg.php');
+				require_once('include/fes.php');
+			echo '</div>
+			</div>
+		</div>';
+		}elseif($current =='add'){
+			echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Dodaj dane</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('sub.php');
+			echo '</div>
+			</div>
+		</div>';
+		}elseif($current =='settings'){
+			
+		}
 	}
 	
 	// This adds support for a "simplenote" shortcode
