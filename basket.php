@@ -63,9 +63,13 @@
 	}
 
 	function basket_admin_tabs( $current = 'edit' ) {
-		var_dump($current);
+		//if ($current==null)$current='edit';
+		$current = $current ?: 'edit';
+		// var_dump($current);
+		// var_dump($current);
+
 		$tabs = array( 'add' => 'Dodaj', 'edit' => 'Edytuj', 'settings' => 'Ustawienia' );
-		echo '<div id="icon-themes" class="icon32"><br></div>';
+		echo '<div id="icon-themes" class="icon32"><br/></div>';
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';

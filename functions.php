@@ -4,9 +4,13 @@
 
 	function perc($f, $s){
 		if($s && $f<$s)
-			return round($f*100/$s) . "%";
+			return strval($f*100/$s);
 		else 
-			return "100%";
+			return "100";
+	}
+
+	function cell($content, $char=""){
+		return "<td>" . round($content,2) . $char . "</td>";
 	}
 
 	function th($s){
@@ -29,7 +33,7 @@
 		while($row = mysqli_fetch_array($result)){
 			echo "<option value=\"";
 			echo $row[$option] . "\">" . $row[$text];
-			echo "</option><br>";
+			echo "</option><br/>";
 		}
 	}
 
@@ -39,9 +43,9 @@
 
 	function numberBox($name, $id=0){
 
-		echo "<table><tr>";
+		echo "<table><tr><td>";
 		echo $name;
-		echo ": </tr><tr><input type='number' min='0' max='999' value='";
+		echo ": </td></tr><tr><td><input type='number' min='0' max='999' value='";
 		if($id){
 			echo get_value("stat", $name, $id);
 		}else{
@@ -49,18 +53,18 @@
 		}
 		echo "' name='";
 		echo $name;
-		echo "'></tr></table>";
+		echo "'></td></tr></table>";
 	}
 
 	function numberTable($labels, $id=0){
 		$labels =array("minutes", "fg3", "fga3", "fg2", "fga2", "fg1", "fga1", "orb", "drb", "assists", "fauls", "turnovers", "steals", "blocks");
-		echo "<table>";
+		echo "<table><tr>";
 		foreach ($labels as $i){
 			echo "<td>";
 			numberBox($i,$id);
 			echo "</td>";
 		}
-		echo "</table>s";
+		echo "</tr></table>";
 	}
 
 	function nb($name, $id){

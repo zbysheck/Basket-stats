@@ -17,26 +17,26 @@
 			echo "</tr>";
 			while($row = mysqli_fetch_array($result)){
 				echo "<tr>";
-				echo "<td>" . $row['id'] . "</td>";
-				echo "<td>" . $row['minutes'] . "</td>";
-				echo "<td>" . ($row['fg3']*3+$row['fg2']*2+$row['fg1'])  . "</td>";
-				echo "<td>" . $row['fg3'] . "</td>";
-				echo "<td>" . $row['fga3'] . "</td>";
-				echo "<td>" . perc($row['fg3'], $row['fga3']) . "</td>";
-				echo "<td>" . $row['fg2'] . "</td>";
-				echo "<td>" . $row['fga2'] . "</td>";
-				echo "<td>" . perc($row['fg2'], $row['fga2']) . "</td>";
-				echo "<td>" . $row['fg1'] . "</td>";
-				echo "<td>" . $row['fga1'] . "</td>";
-				echo "<td>" . perc($row['fg1'], $row['fga1']) . "</td>";
-				echo "<td>" . $row['orb'] . "</td>";
-				echo "<td>" . $row['drb'] . "</td>";
-				echo "<td>" . ($row['drb']+$row['orb']) . "</td>";
-				echo "<td>" . $row['assists'] . "</td>";
-				echo "<td>" . $row['fauls'] . "</td>";
-				echo "<td>" . $row['turnovers'] . "</td>";
-				echo "<td>" . $row['steals'] . "</td>";
-				echo "<td>" . $row['blocks'] . "</td>";
+				echo cell($row['id']);
+				echo cell($row['minutes']);
+				echo cell(($row['fg3']*3+$row['fg2']*2+$row['fg1']) );
+				echo cell($row['fg3']);
+				echo cell($row['fga3']);
+				echo cell(perc($row['fg3'], $row['fga3']), "%");
+				echo cell($row['fg2']);
+				echo cell($row['fga2']);
+				echo cell(perc($row['fg2'], $row['fga2']) , "%");
+				echo cell($row['fg1']);
+				echo cell($row['fga1']);
+				echo cell(perc($row['fg1'], $row['fga1']) , "%");
+				echo cell($row['orb']);
+				echo cell($row['drb']);
+				echo cell(($row['drb']+$row['orb']));
+				echo cell($row['assists']);
+				echo cell($row['fauls']);
+				echo cell($row['turnovers']);
+				echo cell($row['steals']);
+				echo cell($row['blocks']);
 
 				echo "</tr>";
 			}

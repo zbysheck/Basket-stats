@@ -4,7 +4,7 @@
 			}
 ?>
 		<form action="" method="post">
-			<b>Edytuj statystyki:</b><br> <select name="game" id="myselect" onchange="this.form.submit()">
+			<b>Edytuj statystyki:</b><br> <select name="game" onchange="this.form.submit()">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM game');
 			echo "<option>--</option>";
@@ -19,7 +19,7 @@
 				echo "value=\"";
 				echo $row['id'] . "\">";
 				echo game_label($row['id']);
-				echo "</option><br>\n";
+				echo "</option>\n";
 			}
 			echo "</select>";
 ?>
@@ -29,7 +29,7 @@
 			if(isset($_POST['case']) && $_POST['case']=="stat"){
 				//include 'fes2.php';
 				echo '<form action="" method="post">
-					<select name="player" id="myselect" onchange="this.form.submit()">';
+					<select name="player" onchange="this.form.submit()">';
 
 				$result = mysqli_query($con,'SELECT * FROM stat WHERE game_id = "'.$_POST['game'].'"');
 				echo "<option>--</option>";
@@ -42,7 +42,7 @@
 					echo "value=\"";
 					echo $row['id'] . "\">" . pl_name($row['player_id']) . " - ";
 					echo game_label($row['game_id']);
-					echo "</option><br>\n";
+					echo "</option>\n";
 				}
 				echo "</select><br/>";
 

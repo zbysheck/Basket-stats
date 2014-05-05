@@ -1,5 +1,5 @@
 		<form action="" method="post">
-			<b>Edytuj mecz:</b><br/> <select name="game" id="myselect" onchange="this.form.submit()">
+			<b>Edytuj mecz:</b><br/> <select name="game" onchange="this.form.submit()">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM game');
 			echo "<option>--</option>";
@@ -13,7 +13,7 @@
 				echo "value=\"";
 				echo $row['id'] . "\">";
 				echo game_label($row['id']);
-				echo "</option><br>\n";
+				echo "</option>\n";
 			}
 			echo "</select><br/>";
 
@@ -26,7 +26,7 @@
 				echo '<form action="" method="post">
 						Drużyna 1: ';
 				$result = mysqli_query($con,'SELECT * FROM team');
-				echo '<select name="team1" id="myselect">';
+				echo '<select name="team1">';
 				echo "<option>--</option>";
 
 				while($row = mysqli_fetch_array($result)){
@@ -37,7 +37,7 @@
 					}
 					echo "value=\"";
 					echo $row['id'] . "\">" . team_name($row['id']);
-					echo "</option><br>\n";
+					echo "</option>\n";
 				}
 				echo "</select>";
 				echo '<input type="hidden" name="game" value="';
@@ -46,7 +46,7 @@
 				Drużyna 2:'; 
 
 				$result = mysqli_query($con,'SELECT * FROM team');
-				echo '<select name="team2" id="myselect">';
+				echo '<select name="team2">';
 				echo "<option>--</option>";
 
 				while($row = mysqli_fetch_array($result)){
@@ -57,7 +57,7 @@
 					}
 					echo "value=\"";
 					echo $row['id'] . "\">" . team_name($row['id']);
-					echo "</option><br>\n";
+					echo "</option>\n";
 				}
 				echo "</select>";
 
