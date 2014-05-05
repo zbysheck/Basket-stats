@@ -10,7 +10,7 @@
 				echo "zmień drużynę:";
 				
 				$result = mysqli_query($con,'SELECT * FROM team');
-				echo '<select name="team" id="myselect">';
+				echo '<select name="team">';
 				echo "<option>--</option>";
 				while($row = mysqli_fetch_array($result)){
 					$opt=trim(pl_team($_POST['player']));
@@ -20,7 +20,7 @@
 					}
 					echo "value=\"";
 					echo $row['id'] . "\">" . $row['name'];
-					echo "</option><br>\n";
+					echo "</option>\n";
 				}
 				echo "</select>";
 
@@ -28,6 +28,6 @@
 				echo $_POST['player'];
 				echo '">';
 				buttons("player");
-				echo '</form>';
 				fc($_POST['player'],"all");
+				echo '</form>';
 			}

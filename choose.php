@@ -1,13 +1,8 @@
 <?php
 	class choose{
-		static public function playerr(){
-			choose::player("choose");
-		}
-
 		static public function player($form_name){
 			$con=connect();
-			echo '<form action="" method="post">
-			<br/> <select name="player" id="myselect" onchange="this.form.submit()">';
+			echo '<form action="" method="post"><select name="player" id="myselect" onchange="this.form.submit()">';
 			$result = mysqli_query($con,'SELECT * FROM player');
 			echo "<option>--</option>";
 			while($row = mysqli_fetch_array($result)){
@@ -19,7 +14,7 @@
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 			echo '</select>
 			<input type="hidden" name="';
@@ -43,7 +38,7 @@
 				}
 				echo "value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 			echo '</select>
 			<input type="hidden" name="choose" value="team">
