@@ -1,6 +1,6 @@
 <?php
-	$con=mysqli_connect("localhost","root","","basket2");
 	require_once("functions.php");
+	$con=connect();
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -37,14 +37,14 @@
 	}
 ?>
 
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>dodaj</title>
 		<link rel="stylesheet" type="text/css" href="css/style2.css" />
-		<meta charset="utf-8"/>
+		<meta charset="utf-8" content="basket"/>
 	</head>
 	<body>
-	<?php //bom("lala");?>
 	<br/>
 		<b>Dodaj drużynę</b>
 		<form action="" method="post">
@@ -56,14 +56,14 @@
 		<b>Dodaj zawodniczkę</b>
 		<form action="" method="post">
 			Imię i Nazwisko: <input type="text" name="imie_nazwisko">
-			Drużyna: <select name="team" id="myselect">
+			Drużyna: <select name="team">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 			
 			//dropDown("team", "team_id", "name");
@@ -76,28 +76,28 @@
 
 		<b>Dodaj mecz</b>
 		<form action="" method="post">
-			Drużyna: <select name="id_team1" id="myselect">
+			Drużyna: <select name="id_team1">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 			
 			//dropDown("team", "team_id", "name");
 ?>
 
 					</select>
-			Drużyna: <select name="id_team2" id="myselect">
+			Drużyna: <select name="id_team2">
 <?php
 			$result = mysqli_query($con,'SELECT * FROM team');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
 				echo $row['id'] . "\">" . $row['name'];
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 ?>
 
@@ -109,23 +109,23 @@
 
 		<b>Dodaj statystyki</b>
 		<form action="" method="post">
-			mecz: <select name="id" id="myselect">
+			mecz: <select name="id">
 <?php
 			$result = mysqli_query($con,'SELECT `d1`.name AS n1, `d2`.name AS n2, `game`.game_date AS d, `game`.id AS id FROM `game` INNER JOIN `team` AS d1 on `d1`.id=`game`.team1_id INNER JOIN `team` AS d2 on `d2`.id=`game`.team2_id');
 
 			while($row = mysqli_fetch_array($result)){
-				echo "<option value=\"" . $row['id'] . "\">" . $row['id'] . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option><br>";
+				echo "<option value=\"" . $row['id'] . "\">" . $row['id'] . $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")" . "</option>\n";
 			}
 ?>
 			</select>
-			Zawodniczka: <select name="player_id" id="myselect">
+			Zawodniczka: <select name="player_id">
 <?php
 			$result = mysqli_query($con,'SELECT `p`.name AS n, `t`.name AS n2, `p`.id as id FROM `player` as p INNER JOIN `team` as t ON `t`.id=`p`.team_id');
 
 			while($row = mysqli_fetch_array($result)){
 				echo "<option value=\"";
 				echo $row['id'] . "\">" . $row['n'] . " (" . $row['n2'] . ")";
-				echo "</option><br>";
+				echo "</option>\n";
 			}
 ?>
 			</select>
