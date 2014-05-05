@@ -36,7 +36,15 @@
 				require_once('player.php');
 
 	function basket_stats(){ 
-		add_submenu_page('tools.php', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
+		add_menu_page('Basket Stats', 'Basket Stats', 'manage_options', __FILE__, 'basket_stats_activation_page', '', 71);
+		add_submenu_page(__FILE__, 'Drużyny', 'Drużyny', 'manage_options', __FILE__ . '_teams', 'basket_stats_team_page');
+		add_submenu_page(__FILE__, 'Mecze', 'Mecze', 'manage_options', __FILE__ . '_games', 'basket_stats_game_page');
+		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_stats_page');
+		add_submenu_page(__FILE__, 'Ustawienia', 'Ustawienia', 'manage_options', __FILE__ . '_settings', 'basket_stats_settings_page');
+		add_submenu_page(__FILE__, 'deprecated', 'deprecated', 'manage_options', __FILE__ . '_deprecated', 'basket_stats_plugin_page');
+
+		//add_submenu_page('admin.php?page=basket_stats', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
+		//add_submenu_page(__FILE__, 'Basket Stats', 'Basket Stats', 'manage_options', __FILE__ . '_submenu', 'basket_stats_plugin_page');
 	} 
 
 	function basket_stats_plugin_page(){ 
