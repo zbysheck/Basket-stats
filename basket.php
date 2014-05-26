@@ -73,7 +73,7 @@
 	function basket_admin_tabs( $current = 'edit' ) {
 		//if ($current==null)$current='edit';
 		$current = $current ?: 'edit';
-		// var_dump($current);
+		 var_dump($current);
 		// var_dump($current);
 
 		$tabs = array( 'add' => 'Dodaj', 'edit' => 'Edytuj', 'settings' => 'Ustawienia' );
@@ -81,7 +81,7 @@
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			echo "<a class='nav-tab$class' href='?page=basket_stats&tab=$tab'>$name</a>";
+			echo "<a class='nav-tab$class' href='?page=basket/basket.php_deprecated&tab=$tab'>$name</a>";
 
 		}
 		echo '</h2>';
