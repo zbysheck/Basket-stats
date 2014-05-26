@@ -1,9 +1,8 @@
 <?php
-	
 	function delete_query($table, $id, $msg){
 		$con=connect();
 		$opt=trim($id);
-		$sql="DELETE FROM ".$table. 
+		$sql="DELETE FROM " . $table .  
 		" WHERE id = '$opt'
 		";
 		echo $sql;
