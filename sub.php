@@ -5,12 +5,17 @@
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-
+var_dump($_POST);
 	if(isset($_POST['case'])){
 		if($_POST['case']=="chooseteam"){
 			$sql="INSERT INTO team (name)
 			VALUES
 			('$_POST[team_name]')";
+		}
+		elseif($_POST['case']=="chooseseason"){
+			$sql="INSERT INTO season (year)
+			VALUES
+			('$_POST[year]')";
 		}
 		elseif($_POST['case']=="chooseplayer"){
 			$sql="INSERT INTO player (name, team_id)
@@ -46,6 +51,23 @@
 	</head>
 	<body>
 	<br/>
+		<form action="" method="post">
+			<b>Dodaj:</b><br> 
+			<select name="year" onchange="this.form.submit()">
+			<?php
+				for($i=1990;$i<=2050;$i++){
+					echo "<option value=\"$i\"";
+					if($i==date("Y")){
+						echo " selected";
+					}
+					echo ">";
+					echo season($i);
+					echo "</option>";
+				}?>
+			</select>
+			<input type="hidden" name="case" value="chooseseason">
+		</form>
+
 		<b>Dodaj drużynę</b>
 		<form action="" method="post">
 			Nazwa drużyny: <input type="text" name="team_name">
@@ -65,7 +87,6 @@
 				echo $row['id'] . "\">" . $row['name'];
 				echo "</option>\n";
 			}
-			
 			//dropDown("team", "team_id", "name");
 ?>
 
@@ -85,7 +106,6 @@
 				echo $row['id'] . "\">" . $row['name'];
 				echo "</option>\n";
 			}
-			
 			//dropDown("team", "team_id", "name");
 ?>
 

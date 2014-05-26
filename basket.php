@@ -76,7 +76,7 @@
 		 var_dump($current);
 		// var_dump($current);
 
-		$tabs = array( 'add' => 'Dodaj', 'edit' => 'Edytuj', 'settings' => 'Ustawienia' );
+		$tabs = array( 'seasons' => 'Sezony', 'current' => 'Aktywny Sezon', 'game' => 'Mecz' );
 		echo '<div id="icon-themes" class="icon32"><br/></div>';
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){

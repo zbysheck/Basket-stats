@@ -9,6 +9,13 @@
 			return "100";
 	}
 
+	function season($y){
+		$s=$y;
+		$s.="/";
+		$s.=$y+1;
+		return $s;
+	}
+
 	function cell($content, $char=""){
 		return "<td>" . round($content,2) . $char . "</td>";
 	}
@@ -110,12 +117,12 @@
 
 	function game_label($i){
 		$result = mysqli_query(connect(),
-			'SELECT 
+			'SELECT
 			`d1`.name AS n1,
-			`d2`.name AS n2, 
-			`game`.game_date AS d, 
+			`d2`.name AS n2,
+			`game`.game_date AS d,
 			`game`.id AS id FROM `game`
-			INNER JOIN `team` AS d1 on `d1`.id=`game`.team1_id 
+			INNER JOIN `team` AS d1 on `d1`.id=`game`.team1_id
 			INNER JOIN `team` AS d2 on `d2`.id=`game`.team2_id WHERE `game`.id="'.$i.'"');
 		$row = mysqli_fetch_array($result);
 		echo $row['n1'] . " vs. " . $row['n2'] . " (" . $row['d'] . ")";
