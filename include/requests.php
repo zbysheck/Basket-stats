@@ -5,7 +5,7 @@
 		$sql="DELETE FROM " . $table .  
 		" WHERE id = '$opt'
 		";
-		echo $sql;
+		//echo $sql;
 		if (!mysqli_query($con,$sql)){
 			die('Error: ' . mysqli_error($con));
 		}else{

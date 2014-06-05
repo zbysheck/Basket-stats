@@ -9,6 +9,6 @@
 	}
 
 	function connect(){
-		return mysqli_connect("localhost","root","","wordpress");
-		//return mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+		//return mysqli_connect("localhost","root","","wordpress");
+		return mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 	}
