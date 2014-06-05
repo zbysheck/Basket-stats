@@ -6,7 +6,7 @@
 	Plugin Name: Basket Stats
 	Plugin URI: to-be-announced.com
 	Description: Simple plugin for tracking basketball stats
-	Version: 0.0.1
+	Version: 0.0.2
 	Author: zbyshekh - Zbigniew Kisły
 	Author URI: http://zbyshekh.heliohost.org/
 	License: GPLv2 or later
@@ -36,12 +36,12 @@
 				require_once('player.php');
 
 	function basket_stats(){ 
-		add_menu_page('Basket Stats', 'Basket Stats', 'manage_options', __FILE__, 'basket_stats_activation_page', '', 71);
-		add_submenu_page(__FILE__, 'Drużyny', 'Drużyny', 'manage_options', __FILE__ . '_teams', 'basket_stats_team_page');
-		add_submenu_page(__FILE__, 'Mecze', 'Mecze', 'manage_options', __FILE__ . '_games', 'basket_stats_game_page');
-		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_stats_page');
-		add_submenu_page(__FILE__, 'Ustawienia', 'Ustawienia', 'manage_options', __FILE__ . '_settings', 'basket_stats_settings_page');
-		add_submenu_page(__FILE__, 'deprecated', 'deprecated', 'manage_options', __FILE__ . '_deprecated', 'basket_stats_plugin_page');
+		add_menu_page('Basket Stats', 'Basket Stats', 'manage_options', __FILE__, 'basket_stats_plugin_page', '', 71);
+//		add_submenu_page(__FILE__, 'Drużyny', 'Drużyny', 'manage_options', __FILE__ . '_teams', 'basket_stats_team_page');
+//		add_submenu_page(__FILE__, 'Mecze', 'Mecze', 'manage_options', __FILE__ . '_games', 'basket_stats_game_page');
+//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_stats_page');
+//		add_submenu_page(__FILE__, 'Ustawienia', 'Ustawienia', 'manage_options', __FILE__ . '_settings', 'basket_stats_settings_page');
+//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_plugin_page');
 
 		//add_submenu_page('admin.php?page=basket_stats', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
 		//add_submenu_page(__FILE__, 'Basket Stats', 'Basket Stats', 'manage_options', __FILE__ . '_submenu', 'basket_stats_plugin_page');
@@ -73,16 +73,15 @@
 	function basket_admin_tabs( $current = 'edit' ) {
 		//if ($current==null)$current='edit';
 		$current = $current ?: 'edit';
-		 var_dump($current);
+		// var_dump($current);
 		// var_dump($current);
 
-		$tabs = array( 'seasons' => 'Sezony', 'current' => 'Aktywny Sezon', 'game' => 'Mecz' );
+		$tabs = array( 'seasons' => 'Wszystkie Sezony', 'season' => 'Pojedynczy Sezon', 'game' => 'Mecz', 'settings' => 'Ustawienia');
 		echo '<div id="icon-themes" class="icon32"><br/></div>';
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			echo "<a class='nav-tab$class' href='?page=basket/basket.php_deprecated&tab=$tab'>$name</a>";
-
+			echo "<a class='nav-tab$class' href='?page=basket/basket.php&tab=$tab'>$name</a>";
 		}
 		echo '</h2>';
 
@@ -112,7 +111,55 @@
 			</div>
 		</div>';
 		}elseif($current =='settings'){
+					echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Ustawienia</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('settings.php');
+			echo '</div>
+			</div>
+		</div>';
 			
+		}elseif($current =='season'){
+			if(isset($_GET['activate'])){
+				update_option('BS_active', $_GET['activate']);
+			}
+					echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Sezon ';
+				echo season(null);
+				echo '</span></h3>
+				<div class="inside">';
+				$con=connect();
+			require_once('season.php');
+			echo '</div>
+			</div>
+		</div>';
+		}elseif($current =='seasons'){
+					echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Wszystkie Sezony</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('seasons.php');
+			echo '</div>
+			</div>
+		</div>';
+		}elseif($current =='game'){
+					echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Mecz</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('game.php');
+			echo '</div>
+			</div>
+		</div>';
 		}
 	}
 	
@@ -154,7 +201,83 @@
 	}
 
 
+register_activation_hook( __FILE__, 'activate_basket' );
+	function activate_basket(){
+		$basket_stats_team_name = "Your Team";
+		$basket_stats_team_logo = "http://upload.wikimedia.org/wikipedia/en/f/fc/Greek_Basket_League_Logo.jpg";
+		$basket_stats_active_season = "";
+		global $wpdb;
 
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+		$table_name = "season";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  year int(11) NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
+		$table_name = "team";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  name char(255) DEFAULT '' NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
+		$table_name = "player";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  name char(255) DEFAULT '' NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
+		$table_name = "game";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  team_id int(11) NOT NULL,
+		  season_id int(11) NOT NULL,
+		  game_date date,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
+		$table_name = "stat";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  `id` int(11) NOT NULL auto_increment,
+		  `game_id` int(11) NOT NULL,
+		  `player_id` int(11) NOT NULL,
+		  `active` bool NOT NULL,
+		  `minutes` int(11) NOT NULL,
+		  `fg3` int(11) NOT NULL, #field goal 3 points - trafiony rzut za 3
+		  `fga3` int(11) NOT NULL, #field goal attempt 3 point - wykonany rzut za 3 
+		  `fg2` int(11) NOT NULL, 
+		  `fga2` int(11) NOT NULL,
+		  `fg1` int(11) NOT NULL,
+		  `fga1` int(11) NOT NULL,
+		  `orb` int(11) NOT NULL, # offensive rebounds - zbiorka w ataku
+		  `drb` int(11) NOT NULL, # offensive rebounds - zbiorka w obronie
+		  `assists` int(11) NOT NULL, # asysty
+		  `fauls` int(11) NOT NULL, # faule
+		  `turnovers` int(11) NOT NULL, # strata
+		  `steals` int(11) NOT NULL, #przechwyt
+		  `blocks` int(11) NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+		
+		add_option("basket_stats_team_name", $basket_stats_team_name);
+		add_option("basket_stats_team_logo", $basket_stats_team_logo);
+		add_option("basket_stats_active_season", $basket_stats_active_season);
+
+	}
 	/*
 
 register_activation_hook( __FILE__, 'callback_plugin' );
