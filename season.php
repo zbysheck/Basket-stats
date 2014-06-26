@@ -21,7 +21,7 @@
 				echo $sql;
 			}
 		}else{
-			echo "aktywuj sezon!";
+			echo "Brak aktywnego sezonu!";
 		}
 	}
 
