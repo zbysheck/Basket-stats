@@ -48,7 +48,7 @@
 	<input type="submit"></form>
 
 			<form action="" method="post">
-			<b>Dodaj mecze:</b><br> 
+			<b>Dodaj zawodniczkę:</b><br> 
 			<select name="addstat">
 			<?php
 				$query='SELECT * FROM player';
