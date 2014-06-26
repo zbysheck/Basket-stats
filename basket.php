@@ -72,7 +72,7 @@
 
 	function basket_admin_tabs( $current = 'edit' ) {
 		//if ($current==null)$current='edit';
-		$current = $current ?: 'edit';
+		$current = $current ?: 'seasons';
 		// var_dump($current);
 		// var_dump($current);
 
@@ -130,7 +130,19 @@
 			<div class="postbox open" style="width:100%;">
 				<div class="handlediv" title="Click to toggle"><br /></div>
 				<h3 class="hndle"><span>Sezon ';
-				echo season(null);
+				$active=get_option('BS_active');
+				if(isset($_GET['season'])){
+					$season=$_GET['season'];
+				}else{
+					$season=$active;
+				}
+				$query='SELECT * FROM season WHERE id = '.$active;
+				$con=connect();
+				$result = mysqli_query($con,$query);
+				$result1 = mysqli_fetch_array($result); 
+				$result2 = $result1['year'];
+
+				echo season($result2);
 				echo '</span></h3>
 				<div class="inside">';
 				$con=connect();
@@ -157,6 +169,17 @@
 				<div class="inside">';
 				$con=connect();
 				require_once('game.php');
+			echo '</div>
+			</div>
+		</div>';
+		}elseif($current =='players'){
+					echo '<div class="metabox-holder">
+			<div class="postbox open" style="width:100%;">
+				<div class="handlediv" title="Click to toggle"><br /></div>
+				<h3 class="hndle"><span>Zawodniczki</span></h3>
+				<div class="inside">';
+				$con=connect();
+				require_once('players.php');
 			echo '</div>
 			</div>
 		</div>';
