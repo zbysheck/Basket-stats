@@ -37,11 +37,11 @@
 
 	function basket_stats(){ 
 		add_menu_page('Basket Stats', 'Basket Stats', 'manage_options', __FILE__, 'basket_stats_plugin_page', '', 71);
-//		add_submenu_page(__FILE__, 'Drużyny', 'Drużyny', 'manage_options', __FILE__ . '_teams', 'basket_stats_team_page');
-//		add_submenu_page(__FILE__, 'Mecze', 'Mecze', 'manage_options', __FILE__ . '_games', 'basket_stats_game_page');
-//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_stats_page');
-//		add_submenu_page(__FILE__, 'Ustawienia', 'Ustawienia', 'manage_options', __FILE__ . '_settings', 'basket_stats_settings_page');
-//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_plugin_page');
+		//		add_submenu_page(__FILE__, 'Drużyny', 'Drużyny', 'manage_options', __FILE__ . '_teams', 'basket_stats_team_page');
+		//		add_submenu_page(__FILE__, 'Mecze', 'Mecze', 'manage_options', __FILE__ . '_games', 'basket_stats_game_page');
+		//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_stats_page');
+		//		add_submenu_page(__FILE__, 'Ustawienia', 'Ustawienia', 'manage_options', __FILE__ . '_settings', 'basket_stats_settings_page');
+		//		add_submenu_page(__FILE__, 'Statystyki', 'Statystyki', 'manage_options', __FILE__ . '_stats', 'basket_stats_plugin_page');
 
 		//add_submenu_page('admin.php?page=basket_stats', 'Basket Stats', 'Basket Stats', 'manage_options', 'basket_stats', 'basket_stats_plugin_page');
 		//add_submenu_page(__FILE__, 'Basket Stats', 'Basket Stats', 'manage_options', __FILE__ . '_submenu', 'basket_stats_plugin_page');
@@ -126,26 +126,26 @@
 			if(isset($_GET['activate'])){
 				update_option('BS_active', $_GET['activate']);
 			}
-					echo '<div class="metabox-holder">
+			echo '<div class="metabox-holder">
 			<div class="postbox open" style="width:100%;">
 				<div class="handlediv" title="Click to toggle"><br /></div>
 				<h3 class="hndle"><span>Sezon ';
-				$active=get_option('BS_active');
-				if(isset($_GET['season'])){
-					$season=$_GET['season'];
-				}else{
-					$season=$active;
-				}
-				$query='SELECT * FROM season WHERE id = '.$active;
-				$con=connect();
-				$result = mysqli_query($con,$query);
-				$result1 = mysqli_fetch_array($result); 
-				$result2 = $result1['year'];
+			$active=get_option('BS_active');
+			if(isset($_GET['season'])){
+				$season=$_GET['season'];
+			}else{
+				$season=$active;
+			}
+			$query='SELECT * FROM season WHERE id = '.$active;
+			$con=connect();
+			$result = mysqli_query($con,$query);
+			$result1 = mysqli_fetch_array($result); 
+			$result2 = $result1['year'];
 
-				echo season($result2);
-				echo '</span></h3>
-				<div class="inside">';
-				$con=connect();
+			echo season($result2);
+			echo '</span></h3>
+			<div class="inside">';
+			$con=connect();
 			require_once('season.php');
 			echo '</div>
 			</div>
@@ -242,6 +242,15 @@ register_activation_hook( __FILE__, 'activate_basket' );
 			
 		dbDelta($sql);
 
+		$table_name = "queue";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  season_id int(11) NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
 		$table_name = "team";
 		$sql = "CREATE TABLE " . $table_name . " (
 		  id int(11) NOT NULL AUTO_INCREMENT,
@@ -260,12 +269,33 @@ register_activation_hook( __FILE__, 'activate_basket' );
 			
 		dbDelta($sql);
 
+		$table_name = "season_player";
+		$sql = "CREATE TABLE " . $table_name . " (
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  season_id int(11) NOT NULL,
+		  player_id int(11) NOT NULL,
+		  UNIQUE KEY id (id)
+		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
+			
+		dbDelta($sql);
+
 		$table_name = "game";
 		$sql = "CREATE TABLE " . $table_name . " (
 		  id int(11) NOT NULL AUTO_INCREMENT,
-		  team_id int(11) NOT NULL,
-		  season_id int(11) NOT NULL,
+		  team1_id int(11) NOT NULL,
+		  team2_id int(11) NOT NULL,
+		  queue_id int(11) NOT NULL,
 		  game_date date,
+		  team1_score int(11) NOT NULL,
+		  team2_score int(11) NOT NULL,
+		  team1_score_1q int(11) NOT NULL,
+		  team2_score_1q int(11) NOT NULL,
+		  team1_score_2q int(11) NOT NULL,
+		  team2_score_2q int(11) NOT NULL,
+		  team1_score_3q int(11) NOT NULL,
+		  team2_score_3q int(11) NOT NULL,
+		  team1_score_4q int(11) NOT NULL,
+		  team2_score_4q int(11) NOT NULL,
 		  UNIQUE KEY id (id)
 		) ENGINE=MyISAM DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1 ;";
 			
@@ -285,7 +315,7 @@ register_activation_hook( __FILE__, 'activate_basket' );
 		  `fg1` int(11) NOT NULL,
 		  `fga1` int(11) NOT NULL,
 		  `orb` int(11) NOT NULL, # offensive rebounds - zbiorka w ataku
-		  `drb` int(11) NOT NULL, # offensive rebounds - zbiorka w obronie
+		  `drb` int(11) NOT NULL, # deffensive rebounds - zbiorka w obronie
 		  `assists` int(11) NOT NULL, # asysty
 		  `fauls` int(11) NOT NULL, # faule
 		  `turnovers` int(11) NOT NULL, # strata
@@ -301,22 +331,3 @@ register_activation_hook( __FILE__, 'activate_basket' );
 		add_option("basket_stats_active_season", $basket_stats_active_season);
 
 	}
-	/*
-
-register_activation_hook( __FILE__, 'callback_plugin' );
-	function callback_plugin(){
-		global $wpdb;
-		$table_name = $wpdb->prefix . "blabla";
-		if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-			$sql = "CREATE TABLE $table_name (
-				id int NOT NULL AUTO_INCREMENT,
-				name tinytext NOT NULL
-			);";
-			//reference to upgrade.php file
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			dbDelta($sql);
-			$wpdb->query($sql);
-			echo "lala";
-			echo $wpdb->get_results( "SELECT * FROM comments" )[0];
-		}
-	}*/
