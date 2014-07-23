@@ -18,7 +18,7 @@
 	}
 
 	function post_to_update_sql($table){
-		
+
 	}
 
 	function make_field($txt){
@@ -29,7 +29,7 @@
 			echo "<input type=\"";
 
 			echo $txt[0];//na-ah!
-			echo 
+			echo $arr[$txt[0]]
 
 			echo "\"";
 			if($c>1){
