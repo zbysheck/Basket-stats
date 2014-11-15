@@ -142,6 +142,16 @@
 		return trim($row["$value"]);
 	}
 
+	function get_id($table, $value, $i){
+		$sql="SELECT * FROM " . $table . " WHERE '".$i."' = $value";
+		$result = mysqli_query(connect(),$sql);
+		if (mysqli_connect_errno()){
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+		$row = mysqli_fetch_array($result);
+		return trim($row["id"]);
+	}
+
 	function update_table($table, $id, $sql, $label){
 
 		$sql ='UPDATE ' . $table . " SET " . $sql . 'WHERE id = ' . trim($id);
