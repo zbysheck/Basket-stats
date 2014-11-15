@@ -4,9 +4,9 @@
 
 	if(isset($_POST['addplayer'])){
 		//var_dump($_POST);
-			$sql="INSERT INTO player (name)
+			$sql="INSERT INTO player (name, number)
 			VALUES
-			('$_POST[addplayer]')";
+			('$_POST[addplayer]', '$_POST[numer]')";
 		if (!mysqli_query($con,$sql)){
 			die('Error: ' . mysqli_error($con));
 		}
@@ -44,11 +44,11 @@
 	//var_dump($_POST);
 ?>
 	<form action="" method="post">
-	Nowa zawodniczka: <input type="text" name="addplayer">
+	Nowa zawodniczka: <input type="text" name="addplayer"> nr <input type="number" name="numer">
 	<input type="submit"></form>
 
 			<form action="" method="post">
-			<b>Dodaj zawodniczkę:</b><br> 
+			<b>Dodaj mecze:</b><br> 
 			<select name="addstat">
 			<?php
 				$query='SELECT * FROM player';
