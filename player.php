@@ -9,12 +9,37 @@
 
 		function drawTable($labels, $result)
 		{
-			echo "<table>";
-			echo "<tr>";
-			foreach ($labels as $i) {
-				th($i);
-			}
-			echo "</tr>";
+			echo '<table style="width: 100%;" border="1">';
+			echo '
+			<tr>
+				<th rowspan="2">Mecz po meczu</th>
+				<th rowspan="2">min</th>
+				<th rowspan="2">pkt</th>
+				<th colspan="3">za 2</th>
+				<th colspan="3">za 3</th>
+				<th colspan="3">za 1</th>
+				<th colspan="3">zb</th>
+				<th rowspan="2">a</th>
+				<th rowspan="2">f</th>
+				<th rowspan="2">s</th>
+				<th rowspan="2">p</th>
+				<th rowspan="2">b</th>
+				<th rowspan="2">eval</th>
+			</tr>
+			<tr>
+				<th>c</th>
+				<th>w</th>
+				<th>%</th>
+				<th>c</th>
+				<th>w</th>
+				<th>%</th>
+				<th>c</th>
+				<th>w</th>
+				<th>%</th>
+				<th>a</th>
+				<th>o</th>
+				<th>s</th>
+			</tr>							';
 			while($row = mysqli_fetch_array($result)){
 				echo "<tr>";
 				echo cell($row['id']);
@@ -37,6 +62,7 @@
 				echo cell($row['turnovers']);
 				echo cell($row['steals']);
 				echo cell($row['blocks']);
+				echo cell("N/A");
 
 				echo "</tr>";
 			}
@@ -49,6 +75,11 @@
 		}
 
 		function avg($id){
+			echo "srednia<br>";
+			stats('SELECT id, AVG(minutes) AS minutes, AVG(fg3) AS fg3, AVG(fga3) AS fga3, AVG(fg2) AS fg2, AVG(fga2) AS fga2, AVG(fg1) AS fg1, AVG(fga1) AS fga1, AVG(orb) AS orb, AVG(drb) AS drb, AVG(assists) AS assists, AVG(fauls) AS fauls, AVG(turnovers) AS turnovers, AVG(steals) AS steals, AVG(blocks) AS blocks FROM stat WHERE player_id="'.$id.'"');
+		}
+
+		function avgn($number){
 			echo "srednia<br>";
 			stats('SELECT id, AVG(minutes) AS minutes, AVG(fg3) AS fg3, AVG(fga3) AS fga3, AVG(fg2) AS fg2, AVG(fga2) AS fga2, AVG(fg1) AS fg1, AVG(fga1) AS fga1, AVG(orb) AS orb, AVG(drb) AS drb, AVG(assists) AS assists, AVG(fauls) AS fauls, AVG(turnovers) AS turnovers, AVG(steals) AS steals, AVG(blocks) AS blocks FROM stat WHERE player_id="'.$id.'"');
 		}
